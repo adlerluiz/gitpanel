@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class ConfigService {
+export class SettingsService {
 
   constructor(
 
@@ -20,6 +20,11 @@ export class ConfigService {
     localStorage.setItem( 'current_organization', repository );
   }
 
+  setSettings( settings ) {
+    settings = JSON.stringify( settings );
+    localStorage.setItem( 'settings', settings );
+  }
+
   getOrganization() {
     return localStorage.getItem( 'current_organization' );
   }
@@ -31,6 +36,10 @@ export class ConfigService {
 
   getRepository() {
     return localStorage.getItem( 'current_repository' );
+  }
+
+  getSettings() {
+    return JSON.parse( localStorage.getItem( 'settings' ) );
   }
 
 }

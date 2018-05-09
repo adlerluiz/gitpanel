@@ -1,5 +1,5 @@
 <ul id="dropdown_info" class="dropdown-content" style="width: 500px !important;">
-  <li><a href="#"> Config </a></li>
+  <li><a href="#"> Perfil </a></li>
   <li class="divider"></li>
   <li><a (click)="logout()">Sair</a></li>
 </ul>
@@ -33,12 +33,18 @@
         </a>
       </li>
 
+      <li>
+        <a [routerLink]="['/settings']">
+          <i class="material-icons">settings</i>
+        </a>
+      </li>
+
       <li *ngIf="isLogged()">
-        <a class="dropdown-trigger" href="#!" data-target="dropdown_info">
+        <a class="dropdown-trigger" data-target="dropdown_info">
+          {{ user.login }}
           <i class="material-icons right">
-            <img style="margin-top: 19px;" class="circle" src="https://avatars3.githubusercontent.com/u/2112638?s=460&v=4" width="25" />
+            <img style="margin-top: 19px;" class="circle" src="{{ user.avatar_url }}" width="25" />
           </i>
-          Adler Luiz
         </a>
       </li>
 

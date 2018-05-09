@@ -12,10 +12,11 @@ import { NgPipesModule } from 'ngx-pipes';
 
 import { AuthService } from './providers/auth.service';
 import { GithubV3Service } from './providers/github-v3.service';
-import { ConfigService } from './providers/config.service';
+import { SettingsService } from './providers/settings.service';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { RepositoryComponent } from './components/repository/repository.component';
 import { BranchesComponent } from './components/branches/branches.component';
 import { LoginComponent } from './components/login/login.component';
@@ -28,7 +29,8 @@ import { LoginComponent } from './components/login/login.component';
     HomeComponent,
     RepositoryComponent,
     BranchesComponent,
-    LoginComponent
+    LoginComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,7 @@ import { LoginComponent } from './components/login/login.component';
     AppRoutingModule,
     NgPipesModule
   ],
-  providers: [ AuthService, GithubV3Service, ConfigService ],
+  providers: [ AuthService, GithubV3Service, SettingsService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

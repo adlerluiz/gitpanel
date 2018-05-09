@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../providers/auth.service';
 import { Router } from '@angular/router';
+import {GithubV3Service} from "../../providers/github-v3.service";
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
+    public githubV3Service: GithubV3Service,
     public route: Router
   ) { }
 
@@ -24,7 +26,11 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authService.setToken( this.userToken );
-    location.reload( true );
+    this.githubV3Service.getUser()
+      .subscribe( data => {
+        this.authService.setUser( data );
+        location.reload( true );
+      }, error => {} );
   }
 
 }

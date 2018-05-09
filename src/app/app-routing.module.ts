@@ -3,6 +3,7 @@ import { Router, Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { RepositoryComponent } from './components/repository/repository.component';
 
 import { AuthService } from './providers/auth.service';
@@ -15,6 +16,10 @@ const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'settings',
+        component: SettingsComponent
     },
     {
         path: 'r/:owner/:repository',

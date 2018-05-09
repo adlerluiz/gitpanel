@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { AuthService } from './providers/auth.service';
 import { GithubV3Service } from './providers/github-v3.service';
-import { ConfigService } from './providers/config.service';
+import { SettingsService } from './providers/settings.service';
 
 @Component({
   selector: 'app-root',
@@ -11,26 +11,26 @@ import { ConfigService } from './providers/config.service';
 })
 export class AppComponent {
 
-  user: any = {
-    'token': null
-  };
+  user: object = {};
 
   organization: any;
   organizations: any;
-  repositories: any;
+  repositories: any = [];
 
   currentRepositoryName = '';
   formSearchRepository = '';
 
   constructor(
     public authService: AuthService,
-    public configService: ConfigService,
+    public settingsService: SettingsService,
     public githubv3Service: GithubV3Service
   ) {
-    this.user.token = this.authService.getToken();
-    this.organization = this.configService.getOrganization();
-    this.organizations = this.configService.getOrganizations();
-    this.getRepositoriesByOwner( this.organization );
+    this.user = this.authService.getUser();
+    this.organization = this.settingsService.getOrganization();
+    this.organizations = this.settingsService.getOrganizations();
+    if ( this.authService.isLogged() ) {
+      this.getRepositoriesByOwner( this.organization );
+    }
     this.currentRepositoryName = localStorage.getItem( 'current_repository' );
   }
 
@@ -40,7 +40,7 @@ export class AppComponent {
 
   setDefaultOrganization( organization: string ) {
     this.organization = organization;
-    this.configService.setOrganization( organization );
+    this.settingsService.setOrganization( organization );
     this.getRepositoriesByOwner( organization );
   }
 

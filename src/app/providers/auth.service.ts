@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ConfigService } from './config.service';
+import { SettingsService } from './settings.service';
 
 @Injectable()
 export class AuthService {
 
   constructor(
-    configService: ConfigService
+    settingsService: SettingsService
   ) { }
 
   setUser( user ) {
