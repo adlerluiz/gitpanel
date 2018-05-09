@@ -1,0 +1,266 @@
+<div id="modalRemoveBranch" #modalRemoveBranch class="modal">
+  <div class="modal-content">
+    <h4>Confirmar Remoção</h4>
+
+    <h5 class="red-text">Você vai remover a branch {{ formDataToRemoveBranch.name }} e esta ação não pode ser desfeita. Você tem certeza?</h5>
+
+    <p>Por favor escreva <span class="red lighten-5 red-text" style="padding: 5px;"> {{ formDataToRemoveBranch.name }} </span> para continuar com a remoção ou feche esta modal para cancelar.</p>
+
+    <input type="text" [(ngModel)]="formDataToRemoveBranch.confirmNameToRemoval" />
+  </div>
+
+  <div class="modal-footer">
+    <button class="modal-close waves-effect waves-green btn-flat">Cancelar</button>
+    <button class="modal-close waves-effect waves-red btn-flat red white-text" [disabled]="formDataToRemoveBranch.name != formDataToRemoveBranch.confirmNameToRemoval" (click)="removeBranch( formDataToRemoveBranch )">Confirmar</button>
+  </div>
+</div>
+
+<div id="modalCommitsBranch" #modalCommitsBranch class="modal bottom-sheet">
+  <div class="modal-content">
+
+    <div class="row">
+
+      <div class="left">
+        <h3> {{ formDataCommitsBranch.name }} <i class="material-icons">trending_flat</i>
+          <span class="uppercase"> {{ formDataCommitsBranch.compare_with }} </span>
+        </h3>
+      </div>
+
+      <div class="right">
+          <!--a class="waves-effect waves-light btn modal-trigger" style="width: 130px !important;"
+             data-target="modalArquivoMd" ng-class="{ disabled: !currentBranch['compare_'+currentBranch['type']].md }"><i class="material-icons left">info</i> .md</a-->
+
+          <a class="waves-effect waves-light orange btn" (click)="openModalConfirmMerge()">
+            <i class="material-icons left">call_merge</i> Merge
+          </a>
+      </div>
+
+    </div>
+
+    <div class="row" *ngIf="formDataCommitsBranch.total_scripts">
+      <p class="subheader">
+        scripts ({{ formDataCommitsBranch.total_scripts }})
+      </p>
+
+      <div class="collection">
+        <a class="collection-item orange-text pointer" *ngFor="let script of formDataCommitsBranch.scripts; let i = index" (click)="openScript( script )">
+          #{{ i + 1 }} {{ script }}
+        </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <p class="subheader">
+        commits ({{ formDataCommitsBranch.commits.length }})
+      </p>
+
+      <div class="collection">
+        <a class="collection-item pointer" *ngFor="let commit of formDataCommitsBranch.commits | orderByImpure: '-commit.author.date'; let i = index" (click)="openCommitUrl( commit )">
+          #{{ i + 1 }} {{ commit.commit.message | gitmoji }}
+          ({{ commit.commit.author.date | date:'dd/MM/yyyy' }})
+          <span class="badge">{{ commit.sha }} <img src="{{ commit.author.avatar_url }}" width="16" /> </span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="modalConfirmMerge" class="modal" #modalConfirmMerge>
+  <div class="modal-content">
+
+    <h4> Confirmar Merge </h4>
+
+    <p>
+      Você tem certeza que deseja mergar os commits de <b>{{ formDataCommitsBranch.name }}</b> com a branch <b>{{ formDataCommitsBranch.compare_with }}</b>?
+    </p>
+
+    <div class="row" [hidden]="formDataCommitsBranch.merge_result_status === 'ok'">
+      <div class="card-panel col s4 blue center white-text" #dragDivMerge style="padding: 20px;" draggable="true" (dragstart)="onDragStart($event)">{{ formDataCommitsBranch.name }}</div>
+
+      <div class="col s4 center" style="padding: 10px;">
+        <i class="material-icons">trending_flat</i>
+        <br/>
+        <b>{{ formDataCommitsBranch.ahead_by }}</b> commit<span *ngIf="formDataCommitsBranch.ahead_by > 1">s</span>
+
+        <span *ngIf="formDataCommitsBranch.ahead_by > 1"> serão mergeados</span>
+        <span *ngIf="formDataCommitsBranch.ahead_by == 1"> será mergeado</span>
+      </div>
+
+      <div class="card-panel col s4 green center white-text" #dropDivMerge style="padding: 20px;" (drop)="onDrop($event)" (dragover)="allowDrop($event)">{{ formDataCommitsBranch.compare_with }}</div>
+    </div>
+
+    <div *ngIf="formDataCommitsBranch.merge_waiting">
+      <h6 class="center">Realizando merge...</h6>
+      <div class="progress">
+        <div class="indeterminate"></div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="!formDataCommitsBranch.merge_waiting && formDataCommitsBranch.merge_result_status">
+      <div class="col s12">
+        <div class="card-panel" [ngClass]="{ teal: formDataCommitsBranch.merge_result_status === 'ok', red: formDataCommitsBranch.merge_result_status === 'error' }">
+          <span class="white-text">
+              {{ formDataCommitsBranch.merge_result_message }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <button class="modal-action modal-close waves-effect waves-green btn-flat">Fechar</button>
+
+    <button class="waves-effect waves-green btn green" (click)="mergeBranchesCompare( formDataCommitsBranch )"
+            [disabled]="formDataCommitsBranch.merge_waiting">Merge
+    </button>
+  </div>
+
+</div>
+
+<table class="highlight" *ngIf="branchesData.length && !showLoadingBranches">
+  <thead>
+    <tr>
+      <th width="10%" style="padding: 26px !important;"> Branch </th>
+      <th width="10%"> Commit </th>
+      <th width="1%" class="uppercase center" *ngFor="let branchToCompareData of branchesToCompareValidated">
+        <span style="margin-left: -14% !important;">{{ branchToCompareData }}</span>
+      </th>
+      <th width="10%"></th>
+    </tr>
+  </thead>
+
+  <tbody style="padding-top: 20px !important;">
+    <!--tr *ngFor="let branch of branchesData | orderByImpure: 'name' | filterBy: ['name', 'commit.sha']: formSearch; let i = index"-->
+    <tr *ngFor="let branch of branchesData; let i = index">
+
+      <td class="bold" style="padding-left: 26px !important;">
+        {{ branch.name }}
+      </td>
+
+      <td>
+        <span class="hide-on-small-only"> {{ branch.commit.sha }}</span>
+        <span class="hide-on-med-and-up"> {{ branch.commit.sha | truncate:[ 7, '' ] }}</span>
+      </td>
+
+      <td *ngFor="let branchToCompareData of branchesToCompareValidated">
+        <button class="btn waves-light modal-trigger" [ngClass]="getClassesToButton( branch.compare[ branchToCompareData ] )" *ngIf="verifyIfHaveAheadCommits( branch.compare[ branchToCompareData ] )" (click)="bindBranchDataToModal( branch, branchToCompareData, i )" data-target="modalCommitsBranch">
+          {{ branch.compare[ branchToCompareData ].ahead_by }} commit<span *ngIf="verifyIfHaveAheadCommits( branch.compare[ branchToCompareData ] ) > 1">s</span>
+        </button>
+
+        <button class="btn waves-light" [ngClass]="getClassesToButton( branch.compare[ branchToCompareData ] )" *ngIf="!verifyIfHaveAheadCommits( branch.compare[ branchToCompareData ] )">
+            <span [hidden]="branch.isReload">
+              <i class="material-icons" *ngIf="verifyIfHaveAheadCommits( branch.compare[ branchToCompareData ] ) >= 1">loop</i>
+              <i class="material-icons" *ngIf="!verifyIfHaveAheadCommits( branch.compare[ branchToCompareData ] )">done_all</i>
+            </span>
+          <i [hidden]="!branch.isReload" class="material-icons text-blue">hourglass_empty</i>
+        </button>
+      </td>
+
+      <td class="right" style="padding-right: 26px !important;">
+        <button [disabled]="branch.isReload" (click)="reloadBranch( branch, false )" class="btn btn-flat waves-effect transparent blue-text tooltipped" style="width: 50px !important;" data-tooltip="Atualizar" data-position="right">
+          <i [hidden]="branch.isReload" class="material-icons">autorenew</i>
+          <i [hidden]="!branch.isReload" class="material-icons">hourglass_empty</i>
+        </button>
+        <button (click)="openModalToRemoveBranch( branch, i )" data-target="modalRemoveBranch" [disabled]="branch.isReload" class="btn btn-flat waves-effect transparent red-text tooltipped modal-trigger" style="width: 50px !important;" data-tooltip="Remover"> <i class="material-icons">delete</i> </button>
+      </td>
+
+    </tr>
+
+  </tbody>
+
+</table>
+
+<div class="center" *ngIf="!showLoadingBranches && !branchesData.length">
+  Nenhuma Branch para mostrar
+</div>
+
+<div class="ph-item" *ngIf="showLoadingBranches" style="border: 0; margin-bottom: 0;">
+  <div class="ph-col-12">
+    <div class="ph-row">
+      <div class="ph-col-12"></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="ph-item" *ngIf="showLoadingBranches">
+
+  <div class="ph-col-12">
+    <div class="ph-row">
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+    </div>
+
+    <div class="ph-row">
+      <div class="ph-col-12 empty big"></div>
+    </div>
+
+    <div class="ph-row">
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+    </div>
+
+    <div class="ph-row">
+      <div class="ph-col-12 empty big"></div>
+    </div>
+
+    <div class="ph-row">
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+    </div>
+
+    <div class="ph-row">
+      <div class="ph-col-12 empty big"></div>
+    </div>
+
+    <div class="ph-row">
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+    </div>
+    <div class="ph-row">
+      <div class="ph-col-12 empty big"></div>
+    </div>
+
+    <div class="ph-row">
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+    </div>
+    <div class="ph-row">
+      <div class="ph-col-12 empty big"></div>
+    </div>
+
+    <div class="ph-row">
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+    </div>
+
+  </div>
+
+</div>
+

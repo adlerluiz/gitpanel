@@ -1,20 +1,86 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
+<ul id="dropdown_info" class="dropdown-content" style="width: 500px !important;">
+  <li><a href="#"> Config </a></li>
+  <li class="divider"></li>
+  <li><a (click)="logout()">Sair</a></li>
+</ul>
+
+<ul id='dropdown_select_repository' class='dropdown-content'>
+  <li *ngFor="let org of organizations" [ngClass]="{ 'blue lighten-1': org.login === organization }">
+    <img src="{{ org.avatar_url }}" width="15%" style="float:left; margin: 8px 15px 0 10px;" />
+    <a (click)="setDefaultOrganization( org.login )" [ngClass]="{ 'white-text': org.login === organization }">
+      <span style="margin-top: -20px !important;">{{ org.login }}</span>
+    </a>
   </li>
 </ul>
 
+<!-- Barra superior -->
+<nav class="blue darken-1">
+
+  <div class="nav-wrapper">
+
+    <a class="brand-logo">
+      <span data-target="slide-out" class="sidenav-trigger">
+        <i class="material-icons pointer">menu</i>
+        Git Panel
+      </span>
+    </a>
+
+    <ul class="right hide-on-med-and-down">
+
+      <li>
+        <a (click)="refresh()">
+          <i class="material-icons">refresh</i>
+        </a>
+      </li>
+
+      <li *ngIf="isLogged()">
+        <a class="dropdown-trigger" href="#!" data-target="dropdown_info">
+          <i class="material-icons right">
+            <img style="margin-top: 19px;" class="circle" src="https://avatars3.githubusercontent.com/u/2112638?s=460&v=4" width="25" />
+          </i>
+          Adler Luiz
+        </a>
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+<!-- Menu lateral -->
+<ul id="slide-out" class="sidenav" *ngIf="isLogged()" style="overflow: hidden !important;">
+
+  <li>
+    <a class='dropdown-trigger btn btn-flat transparent' href="#!" data-target='dropdown_select_repository'>
+      {{ organization }} <i class="material-icons">arrow_drop_down</i>
+    </a>
+  </li>
+
+  <li> <div class="divider"></div> </li>
+
+  <li style="padding: 0 15px;">
+    <div class="nav-wrapper">
+      <div class="input-field fix-search grey lighten-4">
+        <input id="search" type="search" class="transparent" [(ngModel)]="formSearchRepository">
+        <label class="label-icon" for="search" (click)="toggleSearchInput()"> <i class="material-icons">search</i> </label>
+        <i class="material-icons" (click)="formSearchRepository = ''">close</i>
+      </div>
+    </div>
+  </li>
+  <li> <a class="subheader">Repos ({{ repositories.length || 0 }})</a> </li>
+  <li style="overflow: auto; height: 85%; padding: 0 15px;">
+    <div>
+      <ul>
+        <li *ngFor="let repo of repositories | orderByImpure: 'name' | filterBy: [ 'name' ]: formSearchRepository">
+          <a [ngClass]="{ 'grey lighten-4': repo.name === currentRepositoryName }" [routerLink]="[ '/r', organization, repo.name ]" (click)="searchRepository( repo )">{{ repo.name }}</a>
+        </li>
+      </ul>
+    </div>
+  </li>
+
+</ul>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

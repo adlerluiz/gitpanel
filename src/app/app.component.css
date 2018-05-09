@@ -1,0 +1,27 @@
+main {
+// padding-left: 240px;
+}
+
+.sidenav {
+  width: 240px !important;
+}
+
+.sidenav li a {
+  font-size: 11px !important;
+}
+
+.fix-search label {
+  margin-top: 1px;
+}
+
+.fix-search i {
+  margin-top: 14px;
+}
+
+@media only screen and (max-width: 992px) {
+
+  main {
+  // padding-left: 0;
+  }
+
+}

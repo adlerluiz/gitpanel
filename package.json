@@ -1,6 +1,6 @@
 {
-  "name": "new-gitpanel",
-  "version": "0.0.0",
+  "name": "gitpanel",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -22,7 +22,10 @@
     "@angular/router": "^6.0.0",
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "materialize-css": "^1.0.0-beta",
+    "ngx-pipes": "^2.1.2",
+    "placeholder-loading": "^0.1.4"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^6.0.0",

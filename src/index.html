@@ -1,14 +1,75 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8">
-  <title>NewGitpanel</title>
+  <title>GitPanel</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-  <app-root></app-root>
+<app-root>
+  <div style="top:0; bottom:0; left:0; right:0; background-color: rgba(0,0,0,.7); position: fixed; z-index: 99;">
+    <div style="left: 48%; top: 48%; position: absolute;">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+
+        <div class="spinner-layer spinner-red">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+
+        <div class="spinner-layer spinner-yellow">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+
+        <div class="spinner-layer spinner-green">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-root>
 </body>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+    var elemsTooltipped = document.querySelectorAll('.tooltipped');
+    M.Tooltip.init( elemsTooltipped );
+
+    var elemsDropdown = document.querySelectorAll('.dropdown-trigger');
+    M.Dropdown.init( elemsDropdown );
+
+    M.AutoInit();
+  });
+</script>
 </html>

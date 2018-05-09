@@ -1,0 +1,83 @@
+<div class="blue white-text">
+  <div class="container-large">
+    <div class="row">
+
+      <div class="col s8">
+        <div class="left col s12">
+
+          <h5>
+            {{ owner }} / {{ repository }} <sub><i style="font-size: 19px;" class="material-icons yellow-text">star_border</i></sub>
+          </h5>
+
+          <div class="col s2">
+            <i class="material-icons tiny">public</i> Linguagem: <b>{{ repositoryData.language }}</b>
+          </div>
+
+          <div class="col s2">
+            <i class="material-icons tiny">report_problem</i> Issues abertas: <b>{{ repositoryData.open_issues }}</b>
+          </div>
+
+          <div class="col s6">
+            <i class="material-icons tiny">access_time</i> Atualizado em: <b>{{ repositoryData.updated_at | date: 'dd/MM/yyyy hh:mm' }}</b>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col s4">
+        <div class="right">
+          <!--div class="nav-wrapper">
+            <div class="input-field">
+              <input id="search" type="search" class="transparent white-text" [(ngModel)]="search" [ngClass]="{ 'hidden-search': hideSearchInput }">
+              <label class="label-icon" for="search" (click)="toggleSearchInput()"> <i class="material-icons white-text">search</i> </label>
+              <i class="material-icons" (click)="toggleSearchInput()" [hidden]="hideSearchInput">close</i>
+            </div>
+          </div-->
+        </div>
+      </div>
+
+
+      <!--div class="row container center">
+
+        <div class="col s4">
+          <h5>QA</h5>
+          <p>
+            A9C721A07313D2C931108FB200F07411C2C06AB1
+          </p>
+        </div>
+
+        <div class="col s4">
+          <h5>HOMOLOG</h5>
+          <p>
+            D0A57F905CF2373B5715D6DA4F9D3059185C60EB
+          </p>
+        </div>
+
+        <div class="col s4">
+          <h5>MASTER</h5>
+          <p>
+            BAC3DE574F3C47EFAC8D3018EE78E0FA7AD9E5B2
+          </p>
+        </div>
+
+      </div-->
+
+    </div>
+
+  </div>
+
+  <!--div class="center nav-content">
+    <ul class="tabs tabs-transparent">
+      <li class="tab"><a href="#branches">Branches</a></li>
+      <li class="tab"><a href="#compare">Compare</a></li>
+    </ul>
+  </div-->
+
+</div>
+
+<div id="branches" class="col s12 container-large">
+  <app-branches [owner]="owner" [repository]="repository" [search]="''"></app-branches>
+</div>
+<!--div id="compare" class="col s12">Compare</div-->
+
+<br /><br />

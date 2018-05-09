@@ -1,0 +1,44 @@
+import { NgModule } from '@angular/core';
+import { Router, Routes, RouterModule } from '@angular/router';
+
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { RepositoryComponent } from './components/repository/repository.component';
+
+import { AuthService } from './providers/auth.service';
+
+const routes: Routes = [
+    {
+        path: '',
+        component: HomeComponent
+    },
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'r/:owner/:repository',
+        component: RepositoryComponent
+    },
+    {
+        path: '**',
+        component: HomeComponent
+    }
+];
+
+@NgModule({
+    imports: [RouterModule.forRoot(routes, { useHash: false, enableTracing: false } ) ],
+    exports: [RouterModule]
+})
+export class AppRoutingModule {
+
+  constructor(
+    public authService: AuthService,
+    public route: Router,
+  ) {
+    if ( !this.authService.isLogged() ) {
+      this.route.navigateByUrl( 'login' );
+    }
+  }
+
+}

@@ -1,0 +1,10 @@
+<div class="center" style="padding: 20px;" *ngIf="currentOrganization && currentRepository">
+  <h5>Seu úlimo acesso foi em {{ currentOrganization }} / {{ currentRepository }}</h5>
+
+
+  <div style="margin-top: 100px;">
+    <a class="btn green" [routerLink]="[ '/r', currentOrganization, currentRepository ]">Continuar</a>
+    <p>OU</p>
+    <h5>Selecione o repositório no menu ao lado</h5>
+  </div>
+</div>
