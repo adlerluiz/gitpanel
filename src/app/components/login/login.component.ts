@@ -33,26 +33,29 @@ export class LoginComponent implements OnInit {
 
   setupDefaults() {
     let arrOrgs = [];
-    // this.settingsService.setDefaultBranches( [ 'master' ] );
+
+    this.settingsService.setUserSettings( 'default_branches', [ 'master' ] );
 
     this.githubV3Service.getUser()
-      .subscribe( data => {
-        this.authService.setUser( data );
-        this.settingsService.setOrganization( data.login );
+      .subscribe( ( data: any ) => {
+
+        this.authService.setUser( { name: data.name, login: data.login, avatar_url: data.avatar_url } );
+        this.settingsService.setLastOrganization( data.login );
+
         arrOrgs.push ( { login: data.login, avatar_url: data.avatar_url, type: 'User' } );
       }, error => {} );
 
     this.githubV3Service.getOrgs()
-      .subscribe( ( data: Array ) => {
+      .subscribe( ( data: any ) => {
           if ( data.length ) {
             data.forEach( org => {
               arrOrgs.push ( { login: org.login, avatar_url: org.avatar_url, type: 'Org' } );
             } );
+            this.settingsService.setOrganizations( arrOrgs );
           }
         },
         () => {},
         () => {
-          this.settingsService.setOrganizations( arrOrgs )
           location.reload( true );
         } );
   }

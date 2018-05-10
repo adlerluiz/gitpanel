@@ -375,7 +375,6 @@ export class BranchesComponent implements OnInit, OnChanges {
     window.open( script );
   }
 
-
   onDragStart( event ) {
     const drag = this.dragDivMerge.nativeElement;
     const drop = this.dropDivMerge.nativeElement;

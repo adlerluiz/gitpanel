@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 const URL: any = {
   repository: 'https://api.github.com/repos/:owner/:repo:token',
 
-  user_repositories: 'https://api.github.com/user/repos:token:perPage&affiliation=owner',
+  user_repositories: 'https://api.github.com/users/:owner/repos:token:perPage&affiliation=owner',
   orgs_repositories: 'https://api.github.com/orgs/:owner/repos:token:perPage',
 
   branch: 'https://api.github.com/repos/:owner/:repo/branches/:branch:token',
@@ -58,7 +58,7 @@ export class GithubV3Service {
     let urlReturn = url;
 
     if ( url.indexOf( ':owner' ) !== -1 ) {
-      //urlReturn = url.replace( ':owner', this.authService.getOrganization() );
+      //urlReturn = url.replace( ':owner', this.authService.getLastOrganization() );
       urlReturn = url.replace( ':owner', obj.owner );
     }
 

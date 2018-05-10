@@ -20,7 +20,7 @@
 
     <a class="brand-logo">
       <span data-target="slide-out" class="sidenav-trigger">
-        <i class="material-icons pointer" *ngIf="isLogged()">menu</i>
+        <i class="material-icons pointer" *ngIf="isLogged()" (click)="loadRepositoriesByOrganization()">menu</i>
         Git Panel
       </span>
     </a>
@@ -77,6 +77,66 @@
   <li> <a class="subheader">Repos ({{ repositories.length || 0 }})</a> </li>
   <li style="overflow: auto; height: 85%; padding: 0 15px;">
     <div>
+
+      <div class="ph-item" style="border: 0;" *ngIf="!repositories.length">
+
+        <div class="ph-col-12">
+          <div class="ph-row">
+            <div class="ph-col-10"></div>
+          </div>
+
+          <div class="ph-row">
+            <div class="ph-col-12 empty big"></div>
+          </div>
+
+          <div class="ph-row">
+            <div class="ph-col-10"></div>
+          </div>
+
+          <div class="ph-row">
+            <div class="ph-col-12 empty big"></div>
+          </div>
+
+          <div class="ph-row">
+            <div class="ph-col-10"></div>
+          </div>
+
+          <div class="ph-row">
+            <div class="ph-col-12 empty big"></div>
+          </div>
+
+          <div class="ph-row">
+            <div class="ph-col-10"></div>
+          </div>
+
+          <div class="ph-row">
+            <div class="ph-col-12 empty big"></div>
+          </div>
+
+          <div class="ph-row">
+            <div class="ph-col-10"></div>
+          </div>
+
+          <div class="ph-row">
+            <div class="ph-col-12 empty big"></div>
+          </div>
+
+          <div class="ph-row">
+            <div class="ph-col-10"></div>
+          </div>
+
+          <div class="ph-row">
+            <div class="ph-col-12 empty big"></div>
+          </div>
+
+          <div class="ph-row">
+            <div class="ph-col-10"></div>
+          </div>
+
+        </div>
+
+      </div>
+
       <ul>
         <li *ngFor="let repo of repositories | orderByImpure: 'name' | filterBy: [ 'name' ]: formSearchRepository">
           <a [ngClass]="{ 'grey lighten-4': repo.name === currentRepositoryName }" [routerLink]="[ '/r', organization, repo.name ]" (click)="searchRepository( repo )">{{ repo.name }}</a>

@@ -49,8 +49,9 @@ export class SettingsComponent implements OnInit {
       this.formData.default_branches.push( value.tag );
     } );
 
-    this.settingsService.setDefaultBranches( this.formData );
-    this.settingsService.setSettings( this.formData );
+    this.settingsService.setUserSettings( 'default_branches', this.formData.default_branches );
+
+    M.toast( { html: 'Salvo com sucesso', classes: 'rounded' } );
   }
 
 }

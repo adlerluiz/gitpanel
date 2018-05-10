@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SettingsService } from '../../providers/settings.service';
 import { AuthService } from '../../providers/auth.service';
 
 @Component({
@@ -8,12 +9,18 @@ import { AuthService } from '../../providers/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  currentOrganization = localStorage.getItem( 'current_organization' );
-  currentRepository = localStorage.getItem( 'current_repository' );
+  lastOrganization: any;
+  lastRepository: any;
+  user: any;
 
   constructor(
+    public settingsService: SettingsService,
+    public authService: AuthService
   ) {
-
+    this.lastOrganization = this.settingsService.getLastOrganization();
+    this.lastRepository = this.settingsService.getLastRepository();
+    this.user = this.authService.getUser();
+    // console.log( this.settingsService.getUserSettings( 'default_branches' ) );
   }
 
   ngOnInit() {

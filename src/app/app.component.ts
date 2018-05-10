@@ -10,7 +10,6 @@ import { SettingsService } from './providers/settings.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
   user: object = {};
 
   organization: any;
@@ -26,12 +25,12 @@ export class AppComponent {
     public githubv3Service: GithubV3Service
   ) {
     this.user = this.authService.getUser();
-    this.organization = this.settingsService.getOrganization();
+    this.organization = this.settingsService.getLastOrganization();
     this.organizations = this.settingsService.getOrganizations();
     if ( this.authService.isLogged() ) {
-      this.getRepositoriesByOwner( this.organization );
+      this.loadRepositoriesByOrganization();
     }
-    this.currentRepositoryName = localStorage.getItem( 'current_repository' );
+    this.currentRepositoryName = this.settingsService.getLastRepository();
   }
 
   isLogged() {
@@ -40,14 +39,14 @@ export class AppComponent {
 
   setDefaultOrganization( organization: string ) {
     this.organization = organization;
-    this.settingsService.setOrganization( organization );
-    this.getRepositoriesByOwner( organization );
+    this.settingsService.setLastOrganization( organization );
+    this.getRepositoriesByOrganization( organization );
   }
 
-  getRepositoriesByOwner( owner ) {
+  getRepositoriesByOrganization( organization ) {
     this.repositories = [];
 
-    this.githubv3Service.getUserRepositories( { perPage: 100 } )
+    this.githubv3Service.getUserRepositories( { owner: organization, perPage: 900 } )
       .subscribe( data => {
         if ( data ) {
           this.repositories = data;
@@ -56,12 +55,18 @@ export class AppComponent {
         }
       } );
 
-    this.githubv3Service.getOrgRepositories( { owner: owner, perPage: 100 } )
+    this.githubv3Service.getOrgRepositories( { owner: organization, perPage: 900 } )
       .subscribe( data => {
         if ( data ) {
           this.repositories = data;
         }
       } );
+
+  }
+
+  loadRepositoriesByOrganization() {
+    this.organization = this.settingsService.getLastOrganization();
+    this.getRepositoriesByOrganization( this.organization );
   }
 
   searchRepository( repo ) {
@@ -74,7 +79,7 @@ export class AppComponent {
   }
 
   logout() {
-    this.authService.setToken( '' );
+    localStorage.clear();
     this.refresh();
   }
 

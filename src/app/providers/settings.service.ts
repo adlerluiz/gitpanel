@@ -7,17 +7,18 @@ export class SettingsService {
 
   ) { }
 
-  setOrganization( organization ) {
-    localStorage.setItem( 'current_organization', organization );
+  setLastOrganization( organization ) {
+    localStorage.setItem( 'last_organization', organization );
   }
 
   setOrganizations( organizations ) {
-    const data = JSON.stringify( [ { login: 'adlerluiz', avatar_url: 'https://avatars3.githubusercontent.com/u/2112638?v=4', type: 'User' }, { login: 'PadraoiX', avatar_url: 'https://avatars0.githubusercontent.com/u/30473100?v=4', type: 'Org' } ] );
-    localStorage.setItem( 'organizations', data );
+    organizations = JSON.stringify( organizations );
+    // const data = JSON.stringify( [ { login: 'adlerluiz', avatar_url: 'https://avatars3.githubusercontent.com/u/2112638?v=4', type: 'User' }, { login: 'PadraoiX', avatar_url: 'https://avatars0.githubusercontent.com/u/30473100?v=4', type: 'Org' } ] );
+    localStorage.setItem( 'organizations', organizations );
   }
 
-  setRepository( repository ) {
-    localStorage.setItem( 'current_organization', repository );
+  setLastRepository( repository ) {
+    localStorage.setItem( 'last_repository', repository );
   }
 
   setSettings( settings ) {
@@ -30,8 +31,8 @@ export class SettingsService {
     localStorage.setItem( 'default_branches', default_branches );
   }
 
-  getOrganization() {
-    return localStorage.getItem( 'current_organization' );
+  getLastOrganization() {
+    return localStorage.getItem( 'last_organization' );
   }
 
   getOrganizations() {
@@ -39,8 +40,8 @@ export class SettingsService {
     return JSON.parse( orgs );
   }
 
-  getRepository() {
-    return localStorage.getItem( 'current_repository' );
+  getLastRepository() {
+    return localStorage.getItem( 'last_repository' );
   }
 
   getSettings() {
@@ -50,6 +51,24 @@ export class SettingsService {
   getDefaultBranches() {
     const settings = JSON.parse( localStorage.getItem( 'settings' ) );
     return settings.default_branches;
+  }
+
+  setUserSettings( name, data ) {
+    let settings: object;
+
+    if ( localStorage.getItem( 'settings' ) ) {
+      settings = JSON.parse( localStorage.getItem( 'settings' ) );
+    } else {
+      settings = {};
+    }
+
+    settings[ name ] = data;
+    localStorage.setItem( 'settings', JSON.stringify( settings ) );
+  }
+
+  getUserSettings( name ) {
+    const settings = JSON.parse( localStorage.getItem( 'settings' ) );
+    return settings[ name ];
   }
 
 }

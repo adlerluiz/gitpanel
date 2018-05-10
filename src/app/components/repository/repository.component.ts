@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GithubV3Service } from '../../providers/github-v3.service';
 import { ActivatedRoute } from '@angular/router';
+import { SettingsService } from '../../providers/settings.service';
 
 interface Repository {
   language?: string;
@@ -24,7 +25,8 @@ export class RepositoryComponent implements OnInit {
 
   constructor(
     private githubv3Service: GithubV3Service,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public settingsService: SettingsService
   ) { }
 
   ngOnInit() {
@@ -32,8 +34,8 @@ export class RepositoryComponent implements OnInit {
       this.owner = params[ 'owner' ];
       this.repository = params[ 'repository' ];
 
-      localStorage.setItem( 'current_organization', this.owner );
-      localStorage.setItem( 'current_repository', this.repository );
+      this.settingsService.setLastOrganization( this.owner );
+      this.settingsService.setLastRepository( this.repository );
 
       this.loadRepositoryData();
     } );
