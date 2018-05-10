@@ -25,6 +25,11 @@ export class SettingsService {
     localStorage.setItem( 'settings', settings );
   }
 
+  setDefaultBranches( default_branches ) {
+    default_branches = JSON.stringify( default_branches );
+    localStorage.setItem( 'default_branches', default_branches );
+  }
+
   getOrganization() {
     return localStorage.getItem( 'current_organization' );
   }
@@ -40,6 +45,11 @@ export class SettingsService {
 
   getSettings() {
     return JSON.parse( localStorage.getItem( 'settings' ) );
+  }
+
+  getDefaultBranches() {
+    const settings = JSON.parse( localStorage.getItem( 'settings' ) );
+    return settings.default_branches;
   }
 
 }

@@ -19,24 +19,22 @@ export class SettingsComponent implements OnInit {
   constructor(
     public settingsService: SettingsService
   ) {
-    // this.formData = this.settingsService.getSettings();
-
-    this.formData = {
-      default_branches: []
-    };
+    this.formData = this.settingsService.getSettings();
   }
 
   ngOnInit() {
+    this.loadChips();
+  }
+
+  loadChips() {
     const chips = this.defaultBranches.nativeElement;
-    const opts = ({
-      data: [{
-        tag: 'Apple',
-      }, {
-        tag: 'Microsoft',
-      }, {
-        tag: 'Google',
-      }],
-    });
+    let opts = {
+      data: [],
+    };
+
+    this.formData.default_branches.forEach( data => {
+      opts.data.push( { tag: data });
+    } );
 
     setTimeout( () => {
       M.Chips.init( chips, opts );
@@ -45,11 +43,14 @@ export class SettingsComponent implements OnInit {
 
   save() {
     const chips = this.defaultBranches.nativeElement.M_Chips.chipsData;
+    this.formData.default_branches = [];
 
     chips.forEach( value => {
-      console.log( value.tag );
       this.formData.default_branches.push( value.tag );
     } );
+
+    this.settingsService.setDefaultBranches( this.formData );
+    this.settingsService.setSettings( this.formData );
   }
 
 }

@@ -20,12 +20,12 @@
 
     <a class="brand-logo">
       <span data-target="slide-out" class="sidenav-trigger">
-        <i class="material-icons pointer">menu</i>
+        <i class="material-icons pointer" *ngIf="isLogged()">menu</i>
         Git Panel
       </span>
     </a>
 
-    <ul class="right hide-on-med-and-down">
+    <ul class="right hide-on-med-and-down" *ngIf="isLogged()">
 
       <li>
         <a (click)="refresh()">
@@ -41,7 +41,7 @@
 
       <li *ngIf="isLogged()">
         <a class="dropdown-trigger" data-target="dropdown_info">
-          {{ user.login }}
+          {{ user.name }}
           <i class="material-icons right">
             <img style="margin-top: 19px;" class="circle" src="{{ user.avatar_url }}" width="25" />
           </i>

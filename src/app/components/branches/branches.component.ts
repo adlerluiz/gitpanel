@@ -1,6 +1,7 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import { GithubV3Service } from '../../providers/github-v3.service';
 import { ActivatedRoute } from '@angular/router';
+import { SettingsService } from '../../providers/settings.service';
 declare let M: any;
 
 interface Branch {
@@ -56,13 +57,15 @@ export class BranchesComponent implements OnInit, OnChanges {
   formDataCommitsBranch: CommitsBranch = {};
 
   branchesData: Array<object> = [];
-  branchesToCompare: Array<string> = [ 'homolog', 'master' ];
+  branchesToCompare: Array<string> = [ 'a', 'b' ];
   branchesToCompareValidated: Array<object> = [];
 
   constructor(
     private githubv3Service: GithubV3Service,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public settingsService: SettingsService
   ) {
+    this.branchesToCompare = this.settingsService.getDefaultBranches();
   }
 
   ngOnInit() {

@@ -40,6 +40,8 @@ const URL: any = {
   user: 'https://api.github.com/user:token',
 
 
+  orgs: 'https://api.github.com/user/orgs:token',
+
 
   delete_branch: 'https://api.github.com/repos/:owner/:repo/git/refs/heads/:ref:token'
 };
@@ -172,6 +174,10 @@ export class GithubV3Service {
 
   getUser() {
     return this.http.get( this.urlReplace( URL.user, null ) );
+  }
+
+  getOrgs() {
+    return this.http.get( this.urlReplace( URL.orgs, null ) );
   }
 
 }
