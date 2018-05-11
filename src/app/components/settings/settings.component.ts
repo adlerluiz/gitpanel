@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SettingsService } from '../../providers/settings.service';
+import { Router } from '@angular/router';
 declare let M: any;
 
 interface Settings {
@@ -17,7 +18,8 @@ export class SettingsComponent implements OnInit {
   formData: Settings;
 
   constructor(
-    public settingsService: SettingsService
+    public settingsService: SettingsService,
+    public route: Router
   ) {
     this.formData = this.settingsService.getSettings();
   }
@@ -52,6 +54,7 @@ export class SettingsComponent implements OnInit {
     this.settingsService.setUserSettings( 'default_branches', this.formData.default_branches );
 
     M.toast( { html: 'Salvo com sucesso', classes: 'rounded' } );
+    this.route.navigateByUrl( 'home' );
   }
 
 }

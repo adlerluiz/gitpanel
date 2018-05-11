@@ -38,12 +38,11 @@ export class LoginComponent implements OnInit {
 
     this.githubV3Service.getUserLogged()
       .subscribe( ( data: any ) => {
-
         this.authService.setUser( { name: data.name, login: data.login, avatar_url: data.avatar_url } );
         this.settingsService.setLastOrganization( data.login );
 
         arrOrgs.push ( { login: data.login, avatar_url: data.avatar_url, type: 'User' } );
-      }, error => {} );
+      }, () => {} );
 
     this.githubV3Service.getOrgs()
       .subscribe( ( data: any ) => {
@@ -51,11 +50,11 @@ export class LoginComponent implements OnInit {
             data.forEach( org => {
               arrOrgs.push ( { login: org.login, avatar_url: org.avatar_url, type: 'Organization' } );
             } );
-            this.settingsService.setOrganizations( arrOrgs );
           }
         },
         () => {},
         () => {
+          this.settingsService.setOrganizations( arrOrgs );
           location.reload( true );
         } );
   }

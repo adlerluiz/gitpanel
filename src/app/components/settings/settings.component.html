@@ -1,20 +1,28 @@
 <div class="container-large">
 
   <div class="row">
-    <h5 class="center">Configurações</h5>
+    <h4 class="">Configurações</h4>
   </div>
 
-  <div class="row">
-    <h6 class="grey-text">Branches</h6>
 
-    <div class="col s12">
-      Branches padrão para comparação (Para adicionar, basta digitar o texto e pressionar Enter. Você pode excluí-los clicando no ícone <b>X</b>)
-      <div #defaultBranches class="chips chips-autocomplete"></div>
+  <div>
+
+    <div class="section">
+      <h5>Branches para comparar</h5>
+      <p class="grey-text">Para adicionar, basta digitar o texto e pressionar Enter. Você pode excluí-los clicando no ícone <b>X</b></p>
+      <div class="row">
+        <div class="col s4">
+          <div #defaultBranches class="chips chips-autocomplete"></div>
+        </div>
+      </div>
     </div>
+
+    <!--div class="divider"></div-->
+
   </div>
 
-  <div class="center">
-    <button class="btn green" (click)="save()">Salvar</button>
-  </div>
+</div>
 
+<div class="center">
+  <button class="btn green" (click)="save()">Salvar</button>
 </div>

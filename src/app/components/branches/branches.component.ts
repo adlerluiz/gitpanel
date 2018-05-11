@@ -131,7 +131,7 @@ export class BranchesComponent implements OnInit, OnChanges {
         arrBranches[ index ][ 'isReload' ] = false;
         arrBranches[ index ][ 'compare' ] = {};
 
-        this.branchesToCompareValidated.forEach( ( branchToCompare: string, index2 ) => {
+        this.branchesToCompareValidated.forEach( ( branchToCompare: any, index2 ) => {
 
           this.githubv3Service.getCompare( { owner: this.owner, repo: this.repository, base: branchToCompare, head: value.name } )
             .subscribe( ( result ) => {

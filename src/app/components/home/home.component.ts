@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
     this.lastOrganization = this.settingsService.getLastOrganization();
     this.lastRepository = this.settingsService.getLastRepository();
     this.user = this.authService.getUser();
-    // console.log( this.settingsService.getUserSettings( 'default_branches' ) );
   }
 
   ngOnInit() {

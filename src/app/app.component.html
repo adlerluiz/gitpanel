@@ -1,5 +1,5 @@
 <ul id="dropdown_info" class="dropdown-content" style="width: 500px !important;">
-  <li><a href="#"> Perfil </a></li>
+  <!--li><a href="#"> Perfil </a></li-->
   <li class="divider"></li>
   <li><a (click)="logout()">Sair</a></li>
 </ul>
@@ -55,7 +55,7 @@
 </nav>
 
 <!-- Menu lateral -->
-<ul id="slide-out" class="sidenav" *ngIf="isLogged()" style="overflow: hidden !important;">
+<ul id="slide-out" class="sidenav" #sideNav *ngIf="isLogged()" style="overflow: hidden !important;">
 
   <li>
     <a class='dropdown-trigger btn btn-flat transparent' href="#!" data-target='dropdown_select_repository'>
@@ -139,7 +139,7 @@
 
       <ul>
         <li *ngFor="let repo of repositories | orderByImpure: 'name' | filterBy: [ 'name' ]: formSearchRepository">
-          <a [ngClass]="{ 'grey lighten-4': repo.name === currentRepositoryName }" [routerLink]="[ '/r', organization, repo.name ]" (click)="searchRepository( repo )">{{ repo.name }}</a>
+          <a [ngClass]="{ 'grey lighten-4': repo.name === currentRepositoryName }" [routerLink]="[ '/r', organization, repo.name ]" (click)="closeSidenav(); searchRepository( repo )">{{ repo.name }}</a>
         </li>
       </ul>
     </div>

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 
 import { AuthService } from './providers/auth.service';
 import { GithubV3Service } from './providers/github-v3.service';
 import { SettingsService } from './providers/settings.service';
+declare let M: any;
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,8 @@ import { SettingsService } from './providers/settings.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  @ViewChild('sideNav') sideNav: ElementRef;
+
   user: object = {};
 
   organization: any;
@@ -86,6 +89,11 @@ export class AppComponent {
   logout() {
     localStorage.clear();
     this.refresh();
+  }
+
+  closeSidenav() {
+    const instance = M.sidenav.getInstance( this.sideNav.nativeElement );
+    instance.close();
   }
 
 }
