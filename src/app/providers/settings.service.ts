@@ -13,7 +13,7 @@ export class SettingsService {
 
   setOrganizations( organizations ) {
     organizations = JSON.stringify( organizations );
-    // const data = JSON.stringify( [ { login: 'adlerluiz', avatar_url: 'https://avatars3.githubusercontent.com/u/2112638?v=4', type: 'User' }, { login: 'PadraoiX', avatar_url: 'https://avatars0.githubusercontent.com/u/30473100?v=4', type: 'Org' } ] );
+    // const data = JSON.stringify( [ { login: 'adlerluiz', avatar_url: 'https://avatars3.githubusercontent.com/u/2112638?v=4', type: 'User' }, { login: 'PadraoiX', avatar_url: 'https://avatars0.githubusercontent.com/u/30473100?v=4', type: 'Organization' } ] );
     localStorage.setItem( 'organizations', organizations );
   }
 

@@ -5,9 +5,22 @@
       <div class="col s8">
         <div class="left col s12">
 
-          <h5>
-            {{ owner }} / {{ repository }} <sub><i style="font-size: 19px;" class="material-icons yellow-text">star_border</i></sub>
-          </h5>
+          <nav class="transparent z-depth-0">
+            <div class="nav-wrapper">
+              <div class="col s12">
+                <a class="breadcrumb"><i style="font-size: 19px;" class="material-icons yellow-text">star_border</i> {{ owner }}</a>
+                <a class="breadcrumb">{{ repository }}</a>
+              </div>
+            </div>
+          </nav>
+
+          <!--table>
+            <tr>
+              <td> <i class="material-icons tiny">public</i> Linguagem: <b>{{ repositoryData.language }}</b> </td>
+              <td> <i class="material-icons tiny">report_problem</i> Issues abertas: <b>{{ repositoryData.open_issues }}</b> </td>
+              <td> <i class="material-icons tiny">access_time</i> Atualizado em: <b>{{ repositoryData.updated_at | date: 'dd/MM/yyyy hh:mm' }}</b> </td>
+            </tr>
+          </table-->
 
           <div class="col s2">
             <i class="material-icons tiny">public</i> Linguagem: <b>{{ repositoryData.language }}</b>

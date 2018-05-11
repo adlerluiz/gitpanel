@@ -32,11 +32,11 @@ export class LoginComponent implements OnInit {
   }
 
   setupDefaults() {
-    let arrOrgs = [];
+    const arrOrgs = [];
 
     this.settingsService.setUserSettings( 'default_branches', [ 'master' ] );
 
-    this.githubV3Service.getUser()
+    this.githubV3Service.getUserLogged()
       .subscribe( ( data: any ) => {
 
         this.authService.setUser( { name: data.name, login: data.login, avatar_url: data.avatar_url } );
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
       .subscribe( ( data: any ) => {
           if ( data.length ) {
             data.forEach( org => {
-              arrOrgs.push ( { login: org.login, avatar_url: org.avatar_url, type: 'Org' } );
+              arrOrgs.push ( { login: org.login, avatar_url: org.avatar_url, type: 'Organization' } );
             } );
             this.settingsService.setOrganizations( arrOrgs );
           }

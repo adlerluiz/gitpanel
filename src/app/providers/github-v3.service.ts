@@ -38,6 +38,7 @@ const URL: any = {
 
 
   user: 'https://api.github.com/user:token',
+  user_info: 'https://api.github.com/users/:owner:token',
 
 
   orgs: 'https://api.github.com/user/orgs:token',
@@ -172,7 +173,11 @@ export class GithubV3Service {
     return this.http.get( this.urlReplace( URL.compare_commits, obj ) );
   }
 
-  getUser() {
+  getUserInfo( obj ) {
+    return this.http.get( this.urlReplace( URL.user_info, obj ) );
+  }
+
+  getUserLogged() {
     return this.http.get( this.urlReplace( URL.user, null ) );
   }
 

@@ -57,7 +57,7 @@ export class BranchesComponent implements OnInit, OnChanges {
   formDataCommitsBranch: CommitsBranch = {};
 
   branchesData: Array<object> = [];
-  branchesToCompare: Array<string> = [ 'a', 'b' ];
+  branchesToCompare: Array<string> = [];
   branchesToCompareValidated: Array<object> = [];
 
   constructor(
@@ -110,10 +110,15 @@ export class BranchesComponent implements OnInit, OnChanges {
           this.updateBranchesToCompareName( value );
 
           if ( key + 1 === data.length) {
+            this.fixBranchesToCompareValidated();
             this.loadBranches( data );
           }
         });
       } );
+  }
+
+  fixBranchesToCompareValidated() {
+    this.branchesToCompareValidated = this.branchesToCompareValidated.filter(Boolean);
   }
 
   loadBranches( data ) {
@@ -126,7 +131,7 @@ export class BranchesComponent implements OnInit, OnChanges {
         arrBranches[ index ][ 'isReload' ] = false;
         arrBranches[ index ][ 'compare' ] = {};
 
-        this.branchesToCompareValidated.forEach( ( branchToCompare: any, index2 ) => {
+        this.branchesToCompareValidated.forEach( ( branchToCompare: string, index2 ) => {
 
           this.githubv3Service.getCompare( { owner: this.owner, repo: this.repository, base: branchToCompare, head: value.name } )
             .subscribe( ( result ) => {
@@ -218,7 +223,11 @@ export class BranchesComponent implements OnInit, OnChanges {
     if ( this.branchesToCompare.includes( value.name ) ) {
       if ( this.branchesToCompareValidated.includes( value.name ) ) {
       } else {
-        this.branchesToCompareValidated.push( value.name );
+        this.branchesToCompare.forEach( ( data, key ) => {
+          if ( data === value.name ) {
+            this.branchesToCompareValidated[ key ] = value.name;
+          }
+        } );
       }
     }
   }

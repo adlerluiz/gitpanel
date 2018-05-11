@@ -46,19 +46,24 @@ export class AppComponent {
   getRepositoriesByOrganization( organization ) {
     this.repositories = [];
 
-    this.githubv3Service.getUserRepositories( { owner: organization, perPage: 900 } )
-      .subscribe( data => {
-        if ( data ) {
-          this.repositories = data;
-        } else {
-          this.repositories = [];
-        }
-      } );
-
-    this.githubv3Service.getOrgRepositories( { owner: organization, perPage: 900 } )
-      .subscribe( data => {
-        if ( data ) {
-          this.repositories = data;
+    this.githubv3Service.getUserInfo( { owner: organization } )
+      .subscribe( ( data: any ) => {
+        if ( data.type === 'Organization' ) {
+          this.githubv3Service.getOrgRepositories( { owner: organization, perPage: 900 } )
+            .subscribe( data2 => {
+              if ( data2 ) {
+                this.repositories = data2;
+              }
+            } );
+        } else if ( data.type === 'User' ) {
+          this.githubv3Service.getUserRepositories( { owner: organization, perPage: 900 } )
+            .subscribe( ( data2: any ) => {
+              if ( data2 ) {
+                this.repositories = data2;
+              } else {
+                this.repositories = [];
+              }
+            } );
         }
       } );
 

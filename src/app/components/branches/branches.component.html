@@ -124,7 +124,7 @@
     <tr>
       <th width="10%" style="padding: 26px !important;"> Branch </th>
       <th width="10%"> Commit </th>
-      <th width="1%" class="uppercase center" *ngFor="let branchToCompareData of branchesToCompareValidated">
+      <th width="1%" class="uppercase center" *ngFor="let branchToCompareData of branchesToCompareValidated;">
         <span style="margin-left: -14% !important;">{{ branchToCompareData }}</span>
       </th>
       <th width="10%"></th>
@@ -135,8 +135,8 @@
     <!--tr *ngFor="let branch of branchesData | orderByImpure: 'name' | filterBy: ['name', 'commit.sha']: formSearch; let i = index"-->
     <tr *ngFor="let branch of branchesData; let i = index">
 
-      <td class="bold" style="padding-left: 26px !important;">
-        {{ branch.name }}
+      <td class="" style="padding-left: 26px !important;">
+        <span style="padding-left: .5rem; border-left: 2px solid #EEE;">{{ branch.name }}</span>
       </td>
 
       <td>
