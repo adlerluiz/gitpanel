@@ -83,7 +83,7 @@ export class AppComponent {
   }
 
   refresh() {
-    location.reload( true );
+    location.reload();
   }
 
   logout() {

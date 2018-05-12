@@ -56,7 +56,7 @@
 
       <div class="collection">
         <a class="collection-item pointer" *ngFor="let commit of formDataCommitsBranch.commits | orderByImpure: '-commit.author.date'" (click)="openCommitUrl( commit )">
-          <span style="padding-right: 3%;">{{ commit.commit.author.date | date:'dd/MM/yyyy HH:mm' }}</span>
+          <span style="padding-right: 3%;" class="grey-text">{{ commit.commit.author.date | date:'dd/MM/yyyy HH:mm' }}</span>
           <span>{{ commit.commit.message | gitmoji }}</span>
           <span class="badge hide-on-med-and-down"> {{ commit.sha }} <img src="{{ commit.author.avatar_url }}" width="16" /> </span>
         </a>
@@ -140,8 +140,8 @@
       </td>
 
       <td>
-        <span class="hide-on-small-only"> {{ branch.commit.sha }}</span>
-        <span class="hide-on-med-and-up"> {{ branch.commit.sha | truncate:[ 7, '' ] }}</span>
+        <span class="hide-on-med-and-down"> {{ branch.commit.sha }}</span>
+        <span class="hide-on-large-only"> {{ branch.commit.sha | truncate:[ 7, '' ] }}</span>
       </td>
 
       <td *ngFor="let branchToCompareData of branchesToCompareValidated">
@@ -163,7 +163,6 @@
           <i [hidden]="branch.isReload" class="material-icons">autorenew</i>
           <i [hidden]="!branch.isReload" class="material-icons">hourglass_empty</i>
         </button>
-        <span style="padding-left: .5rem; border-left: 2px solid #EEE;"></span>
         <button (click)="openModalToRemoveBranch( branch, i )" data-target="modalRemoveBranch" [disabled]="branch.isReload" class="btn btn-flat waves-effect transparent red-text tooltipped modal-trigger" style="width: 50px !important;" data-tooltip="Remover"> <i class="material-icons">delete</i> </button>
       </td>
 

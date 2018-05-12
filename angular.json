@@ -26,10 +26,12 @@
             "styles": [
               "src/styles.css",
               "node_modules/materialize-css/dist/css/materialize.min.css",
-              "node_modules/placeholder-loading/dist/css/placeholder-loading.min.css"
+              "node_modules/placeholder-loading/dist/css/placeholder-loading.min.css",
+              "node_modules/gitgraph.js/src/gitgraph.css"
             ],
             "scripts": [
-              "node_modules/materialize-css/dist/js/materialize.min.js"
+              "node_modules/materialize-css/dist/js/materialize.min.js",
+              "node_modules/gitgraph.js/src/gitgraph.js"
             ]
           },
           "configurations": {

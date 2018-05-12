@@ -1,0 +1,88 @@
+<!--canvas id="gitGraph"></canvas-->
+
+<!--div>
+  <div *ngFor="let commit of commits">
+    {{ commit.sha | truncate: ['7', ''] }}<span *ngFor="let parent of commit.parents">|{{ parent.sha | truncate: ['7', ''] }}</span>
+  </div>
+</div-->
+
+<div class="collection" *ngIf="!showLoadingActivities">
+  <a class="collection-item pointer" *ngFor="let commit of commits; let i = index;" (click)="openCommitUrl( commit )">
+    <span style="padding-right: 3%;" class="grey-text">{{ commit.commit.author.date | date:'dd/MM/yyyy HH:mm' }}</span>
+    <span>{{ commit.commit.message | gitmoji }}</span>
+    <span class="badge hide-on-med-and-down">{{ commit.sha }} </span>
+  </a>
+</div>
+
+<div class="ph-item" *ngIf="showLoadingActivities" style="border: 0;">
+
+  <div class="ph-col-12">
+    <div class="ph-row">
+      <div class="ph-col-2"></div>
+      <div class="ph-col-4"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+    </div>
+
+    <div class="ph-row">
+      <div class="ph-col-12 empty big"></div>
+    </div>
+
+    <div class="ph-row">
+      <div class="ph-col-2"></div>
+      <div class="ph-col-4"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+    </div>
+
+    <div class="ph-row">
+      <div class="ph-col-12 empty big"></div>
+    </div>
+
+    <div class="ph-row">
+      <div class="ph-col-2"></div>
+      <div class="ph-col-4"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+    </div>
+
+    <div class="ph-row">
+      <div class="ph-col-12 empty big"></div>
+    </div>
+
+    <div class="ph-row">
+      <div class="ph-col-2"></div>
+      <div class="ph-col-4"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+    </div>
+    <div class="ph-row">
+      <div class="ph-col-12 empty big"></div>
+    </div>
+
+    <div class="ph-row">
+      <div class="ph-col-2"></div>
+      <div class="ph-col-4"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+    </div>
+    <div class="ph-row">
+      <div class="ph-col-12 empty big"></div>
+    </div>
+
+    <div class="ph-row">
+      <div class="ph-col-2"></div>
+      <div class="ph-col-4"></div>
+      <div class="ph-col-2"></div>
+      <div class="ph-col-2 empty"></div>
+      <div class="ph-col-2"></div>
+    </div>
+
+  </div>
+
+</div>

@@ -22,15 +22,15 @@
             </tr>
           </table-->
 
-          <div class="col s2">
-            <i class="material-icons tiny">public</i> Linguagem: <b>{{ repositoryData.language }}</b>
+          <div class="col s12 m6 l2">
+            <i class="material-icons tiny">public</i> Linguagem: <b>{{ repositoryData.language || 'N/A' }}</b>
           </div>
 
-          <div class="col s2">
-            <i class="material-icons tiny">report_problem</i> Issues abertas: <b>{{ repositoryData.open_issues }}</b>
+          <div class="col s12 m6 l2">
+            <i class="material-icons tiny">info_outline</i> Issues abertas: <b>{{ repositoryData.open_issues }}</b>
           </div>
 
-          <div class="col s6">
+          <div class="col s12 m6 l3">
             <i class="material-icons tiny">access_time</i> Atualizado em: <b>{{ repositoryData.updated_at | date: 'dd/MM/yyyy hh:mm' }}</b>
           </div>
 
@@ -78,46 +78,27 @@
     </div>
 
   </div>
-{{defaultTab}}
+
   <div class="center nav-content">
     <ul class="tabs tabs-transparent" #repositoryTabs>
-      <li class="tab"><a href="#atividade">Atividade</a></li>
-      <li class="tab"><a href="#branches">Branches</a></li>
+      <li class="tab"><a href="#activities"> <i class="material-icons tiny">data_usage</i> Atividades</a></li>
+      <li class="tab"><a href="#branches"> <i class="material-icons tiny">merge_type</i> Branches</a></li>
+      <li class="tab"><a href="#settings"> <i class="material-icons tiny">settings</i> </a></li>
     </ul>
   </div>
 
 </div>
 
-<div id="atividade" class="col s12 container-large">
-  <!--table class="striped highlight">
-
-    <thead>
-      <th width="10%">Data</th>
-      <th>Mensagem</th>
-      <th class="right">SHA</th>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let commit of commits">
-        <td> {{ commit.commit.author.date | date: 'dd/MM/yyyy HH:mm' }} </td>
-        <td> {{ commit.commit.message | gitmoji }} </td>
-        <td class="right"> {{ commit.sha }} </td>
-      </tr>
-    </tbody>
-
-  </table-->
-
-  <div class="collection">
-    <a class="collection-item pointer" *ngFor="let commit of commits; let i = index;" (click)="openCommitUrl( commit )">
-      <span style="padding-right: 3%;">{{ commit.commit.author.date | date:'dd/MM/yyyy HH:mm' }}</span>
-      <span>{{ commit.commit.message | gitmoji }}</span>
-      <span class="badge hide-on-med-and-down">{{ commit.sha }} </span>
-    </a>
-  </div>
+<div id="activities" class="col s12 container-large">
+  <app-activities [owner]="owner" [repository]="repository"></app-activities>
 </div>
 
 <div id="branches" class="col s12 container-large">
   <app-branches [owner]="owner" [repository]="repository" [search]="''"></app-branches>
+</div>
+
+<div id="settings" class="col s12 container-large">
+  Settings
 </div>
 
 <br /><br />

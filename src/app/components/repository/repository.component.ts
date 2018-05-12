@@ -3,6 +3,7 @@ import { GithubV3Service } from '../../providers/github-v3.service';
 import { ActivatedRoute } from '@angular/router';
 import { SettingsService } from '../../providers/settings.service';
 declare let M: any;
+declare let GitGraph: any;
 
 interface Repository {
   language?: string;
@@ -18,7 +19,7 @@ interface Repository {
 export class RepositoryComponent implements OnInit {
   @ViewChild('repositoryTabs') repositoryTabs: ElementRef;
 
-  commits: Array<any>;
+  commits: any;
 
   owner: any;
   repository: any;
@@ -28,6 +29,10 @@ export class RepositoryComponent implements OnInit {
 
   repositoryData: Repository = {};
 
+  defaultTab: any;
+
+  graphBranches: any = [];
+
   constructor(
     private githubv3Service: GithubV3Service,
     public route: ActivatedRoute,
@@ -35,7 +40,7 @@ export class RepositoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    M.Tabs.init( this.repositoryTabs.nativeElement );
+    const instanceRepositoryTabs = M.Tabs.init( this.repositoryTabs.nativeElement );
 
     this.route.params.subscribe( params => {
       this.owner = params[ 'owner' ];
@@ -45,10 +50,13 @@ export class RepositoryComponent implements OnInit {
       this.settingsService.setLastRepository( this.repository );
 
       this.loadRepositoryData();
-      this.getCommits();
+
+      // this.generateGraph();
 
       this.defaultTab = this.settingsService.getUserSettings( 'default_tab' );
+      instanceRepositoryTabs.select( this.defaultTab );
     } );
+
   }
 
   loadRepositoryData() {
@@ -61,17 +69,6 @@ export class RepositoryComponent implements OnInit {
   toggleSearchInput() {
     this.hideSearchInput = !this.hideSearchInput;
     this.search = '';
-  }
-
-  openCommitUrl( commit ) {
-    window.open( commit.html_url );
-  }
-
-  getCommits() {
-    this.githubv3Service.getRepoCommits( { owner: this.owner, repo: this.repository } )
-      .subscribe( data => {
-        this.commits = data;
-      } );
   }
 
 }

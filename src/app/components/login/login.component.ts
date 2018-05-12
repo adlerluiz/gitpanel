@@ -54,8 +54,10 @@ export class LoginComponent implements OnInit {
         },
         () => {},
         () => {
-          this.settingsService.setOrganizations( arrOrgs );
-          location.reload( true );
+          setTimeout( () => {
+            this.settingsService.setOrganizations( arrOrgs );
+            location.reload();
+          }, 300 );
         } );
   }
 

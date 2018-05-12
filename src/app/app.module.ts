@@ -20,6 +20,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { RepositoryComponent } from './components/repository/repository.component';
 import { BranchesComponent } from './components/branches/branches.component';
 import { LoginComponent } from './components/login/login.component';
+import { ActivitiesComponent } from './components/activities/activities.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { LoginComponent } from './components/login/login.component';
     RepositoryComponent,
     BranchesComponent,
     LoginComponent,
-    SettingsComponent
+    SettingsComponent,
+    ActivitiesComponent
   ],
   imports: [
     BrowserModule,

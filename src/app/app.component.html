@@ -18,14 +18,14 @@
 
   <div class="nav-wrapper">
 
-    <a class="brand-logo">
+    <a class="brand-logo left">
       <span data-target="slide-out" class="sidenav-trigger">
         <i class="material-icons pointer" *ngIf="isLogged()" (click)="loadRepositoriesByOrganization()">menu</i>
         Git Panel
       </span>
     </a>
 
-    <ul class="right hide-on-med-and-down" *ngIf="isLogged()">
+    <ul class="right" *ngIf="isLogged()">
 
       <li>
         <a (click)="refresh()">
