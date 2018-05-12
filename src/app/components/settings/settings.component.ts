@@ -5,6 +5,7 @@ declare let M: any;
 
 interface Settings {
   default_branches?: any;
+  default_tab?: string;
 }
 
 @Component({
@@ -14,6 +15,7 @@ interface Settings {
 })
 export class SettingsComponent implements OnInit {
   @ViewChild('defaultBranches') defaultBranches: ElementRef;
+  @ViewChild('formSelect') formSelect: ElementRef;
 
   formData: Settings;
 
@@ -26,11 +28,15 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.loadChips();
+
+    setTimeout( () => {
+      M.FormSelect.init( this.formSelect.nativeElement );
+    } , 300 );
   }
 
   loadChips() {
     const chips = this.defaultBranches.nativeElement;
-    let opts = {
+    const opts = {
       data: [],
     };
 
@@ -52,6 +58,7 @@ export class SettingsComponent implements OnInit {
     } );
 
     this.settingsService.setUserSettings( 'default_branches', this.formData.default_branches );
+    this.settingsService.setUserSettings( 'default_tab', this.formData.default_tab );
 
     M.toast( { html: 'Salvo com sucesso', classes: 'rounded' } );
     this.route.navigateByUrl( 'home' );

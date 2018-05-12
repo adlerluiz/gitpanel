@@ -5,6 +5,8 @@ import { AuthService } from './auth.service';
 const URL: any = {
   repository: 'https://api.github.com/repos/:owner/:repo:token',
 
+  repo_commits: 'https://api.github.com/repos/:owner/:repo/commits:token',
+
   user_repositories: 'https://api.github.com/users/:owner/repos:token:perPage&affiliation=owner',
   orgs_repositories: 'https://api.github.com/orgs/:owner/repos:token:perPage',
 
@@ -183,6 +185,10 @@ export class GithubV3Service {
 
   getOrgs() {
     return this.http.get( this.urlReplace( URL.orgs, null ) );
+  }
+
+  getRepoCommits( obj ) {
+    return this.http.get( this.urlReplace( URL.repo_commits, obj ) );
   }
 
 }

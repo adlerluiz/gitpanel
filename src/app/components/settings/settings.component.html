@@ -17,7 +17,21 @@
       </div>
     </div>
 
-    <!--div class="divider"></div-->
+    <div class="divider"></div>
+
+    <div class="section">
+      <h5>Aba padrão</h5>
+      <p class="grey-text">Definir aba padrão ao visualizar repositório</p>
+      <div class="row">
+        <div class="col s1">
+          <select [(ngModel)]="formData.default_tab" #formSelect>
+            <option value="" disabled selected>Selecione...</option>
+            <option value="atividades">Atividades</option>
+            <option value="branches">Branches</option>
+          </select>
+        </div>
+      </div>
+    </div>
 
   </div>
 

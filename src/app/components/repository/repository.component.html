@@ -78,19 +78,46 @@
     </div>
 
   </div>
-
-  <!--div class="center nav-content">
-    <ul class="tabs tabs-transparent">
+{{defaultTab}}
+  <div class="center nav-content">
+    <ul class="tabs tabs-transparent" #repositoryTabs>
+      <li class="tab"><a href="#atividade">Atividade</a></li>
       <li class="tab"><a href="#branches">Branches</a></li>
-      <li class="tab"><a href="#compare">Compare</a></li>
     </ul>
-  </div-->
+  </div>
 
+</div>
+
+<div id="atividade" class="col s12 container-large">
+  <!--table class="striped highlight">
+
+    <thead>
+      <th width="10%">Data</th>
+      <th>Mensagem</th>
+      <th class="right">SHA</th>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let commit of commits">
+        <td> {{ commit.commit.author.date | date: 'dd/MM/yyyy HH:mm' }} </td>
+        <td> {{ commit.commit.message | gitmoji }} </td>
+        <td class="right"> {{ commit.sha }} </td>
+      </tr>
+    </tbody>
+
+  </table-->
+
+  <div class="collection">
+    <a class="collection-item pointer" *ngFor="let commit of commits; let i = index;" (click)="openCommitUrl( commit )">
+      <span style="padding-right: 3%;">{{ commit.commit.author.date | date:'dd/MM/yyyy HH:mm' }}</span>
+      <span>{{ commit.commit.message | gitmoji }}</span>
+      <span class="badge hide-on-med-and-down">{{ commit.sha }} </span>
+    </a>
+  </div>
 </div>
 
 <div id="branches" class="col s12 container-large">
   <app-branches [owner]="owner" [repository]="repository" [search]="''"></app-branches>
 </div>
-<!--div id="compare" class="col s12">Compare</div-->
 
 <br /><br />
