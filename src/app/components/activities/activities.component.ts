@@ -31,7 +31,7 @@ export class ActivitiesComponent implements OnInit {
 
   getCommits() {
     this.setShowLoadingActivities( true );
-    this.githubv3Service.getRepoCommits( { owner: this.owner, repo: this.repository, perPage: 30 } )
+    this.githubv3Service.getRepoCommits( { owner: this.owner, repo: this.repository, perPage: 40 } )
       .subscribe( data => {
         this.commits = data;
         this.setShowLoadingActivities( false );
