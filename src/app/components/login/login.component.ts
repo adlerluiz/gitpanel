@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
       this.route.navigateByUrl( 'home' );
     }
     this.aRoute.params.subscribe( params => {
+      console.log(params);
       if ( params[ 'access_token' ] ) {
         this.userToken = params[ 'access_token' ];
       }
