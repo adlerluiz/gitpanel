@@ -33,7 +33,7 @@ export class RepositoryComponent implements OnInit {
 
   // graphBranches: any = [];
 
-  compareData = {};
+  compareData: any;
 
   release_client: any;
   release_last: any;
