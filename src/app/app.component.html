@@ -41,7 +41,7 @@
 
       <li *ngIf="isLogged()">
         <a class="dropdown-trigger" data-target="dropdown_info">
-          {{ user.name }}
+          <span class="hide-on-small-only">{{ user.name }}</span>
           <i class="material-icons right">
             <img style="margin-top: 19px;" class="circle" src="{{ user.avatar_url }}" width="25" />
           </i>

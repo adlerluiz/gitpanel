@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../providers/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GithubV3Service } from '../../providers/github-v3.service';
 import { SettingsService } from '../../providers/settings.service';
 
@@ -17,13 +17,19 @@ export class LoginComponent implements OnInit {
     public authService: AuthService,
     public githubV3Service: GithubV3Service,
     public settingsService: SettingsService,
-    public route: Router
+    public route: Router,
+    public aRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
     if ( this.authService.isLogged() ) {
       this.route.navigateByUrl( 'home' );
     }
+    this.aRoute.params.subscribe( params => {
+      if ( params[ 'access_token' ] ) {
+        this.userToken = params[ 'access_token' ];
+      }
+    } );
   }
 
   login() {
