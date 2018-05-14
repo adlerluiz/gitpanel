@@ -107,6 +107,7 @@ export class BranchesComponent implements OnInit, OnChanges {
 
   preLoadBranches() {
     this.setShowLoadingBranches( true );
+    this.branchesToMerge = [];
     this.branchesData = [];
     this.branchesToCompareValidated = [];
 
