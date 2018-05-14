@@ -3,11 +3,10 @@
   <div class="center">
 
     <div class="row">
-      <input type="text" [(ngModel)]="userToken" />
+      <input type="hidden" [(ngModel)]="userToken" />
     </div>
 
     <div class="row">
-      <button class="btn" (click)="login()">Login</button>
       <a class="btn" href="http://github.com/login/oauth/authorize?client_id=cc9e194a4e3cdddfde63&client_secret=8489597eff97001068af16945779c8d53a71e3ef&scope=repo">Logar</a>
     </div>
 
