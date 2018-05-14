@@ -99,7 +99,7 @@
 </div>
 
 <div id="compare" class="col s12 container-large">
-  <h5>Compare entre branches</h5>
+  <h5>Compare entre commits</h5>
 
   <div class="row">
     <div class="input-field col s6">
@@ -117,7 +117,7 @@
     <button class="btn blue" [disabled]="!release_client || !release_last" (click)="compare( release_client, release_last )"> Gerar </button>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="compareData.total_commits">
     <h5>Diferença de {{ compareData.total_commits }} commits</h5>
     <div class="collection">
       <a class="collection-item pointer" *ngFor="let commit of compareData.commits">
@@ -125,7 +125,6 @@
         <span class="badge hide-on-med-and-down"> {{ commit.sha }} </span>
       </a>
     </div>
-
   </div>
 
 </div>
