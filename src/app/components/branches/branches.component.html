@@ -133,7 +133,7 @@
       </label>
     </div>
 
-    <div class="center bold" style="position: absolute; bottom: 30px; right: 30px;" *ngIf="showMergesCheckbox">
+    <div class="center bold" style="position: fixed; bottom: 30px; right: 30px;" *ngIf="showMergesCheckbox">
       <a id="tete" class="btn-floating btn-large waves-effect waves-light red" (click)="mergeSelectedBranches()">
         {{ branchesToMerge.length }}
       </a>
