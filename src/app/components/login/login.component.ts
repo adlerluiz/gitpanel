@@ -26,11 +26,12 @@ export class LoginComponent implements OnInit {
       this.route.navigateByUrl( 'home' );
     }
     this.aRoute.queryParams.subscribe( params => {
+      console.log(params)
+      console.log(params[ 'access_token' ])
       if ( params[ 'access_token' ] ) {
+        console.log('entrou no if')
         this.userToken = params[ 'access_token' ];
-        setInterval( () => {
-          this.login( params[ 'access_token' ] );
-        }, 400);
+        this.login( params[ 'access_token' ] );
       }
     });
   }
