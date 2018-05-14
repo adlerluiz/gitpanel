@@ -5,12 +5,15 @@
     {{ commit.sha | truncate: ['7', ''] }}<span *ngFor="let parent of commit.parents">|{{ parent.sha | truncate: ['7', ''] }}</span>
   </div>
 </div-->
-
 <div class="collection" *ngIf="!showLoadingActivities">
-  <a class="collection-item pointer" *ngFor="let commit of commits; let i = index;" (click)="openCommitUrl( commit )">
+  <a class="collection-item pointer" *ngFor="let commit of commits; let i = index;">
+    <!--label>
+      <input [disabled]="commitsToCompare.length == 2 && verifyDisabled( commit.sha )" type="checkbox" (change)="changeCheckbox( commit.sha )" />
+      <span>Red</span>
+    </label-->
     <span style="padding-right: 3%;" class="grey-text">{{ commit.commit.author.date | date:'dd/MM/yyyy HH:mm' }}</span>
-    <span>{{ commit.commit.message | gitmoji }}</span>
-    <span class="badge hide-on-med-and-down">{{ commit.sha }} </span>
+    <span (click)="openCommitUrl( commit )">{{ commit.commit.message | gitmoji }}</span>
+    <span class="badge hide-on-med-and-down" (click)="openCommitUrl( commit )">{{ commit.sha }} </span>
   </a>
 </div>
 

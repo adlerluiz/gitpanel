@@ -60,6 +60,8 @@ export class BranchesComponent implements OnInit, OnChanges {
   branchesToCompare: Array<string> = [];
   branchesToCompareValidated: Array<object> = [];
 
+  branchesToMerge = [];
+
   constructor(
     private githubv3Service: GithubV3Service,
     public route: ActivatedRoute,
@@ -118,7 +120,7 @@ export class BranchesComponent implements OnInit, OnChanges {
   }
 
   fixBranchesToCompareValidated() {
-    this.branchesToCompareValidated = this.branchesToCompareValidated.filter(Boolean);
+    this.branchesToCompareValidated = this.branchesToCompareValidated.filter( Boolean );
   }
 
   loadBranches( data ) {
@@ -374,6 +376,18 @@ export class BranchesComponent implements OnInit, OnChanges {
     } else {
       alert('Você tentou fraudar uma validação. CUIDADO!');
     }
+  }
+
+  checkboxToCompare( branch, branchToMerge ) {
+    const it = { branch: branch.name, branchToMerge: branchToMerge };
+
+    if ( this.branchesToMerge.includes( it ) ) {
+      this.branchesToMerge.splice( this.branchesToMerge.indexOf( it ), 1 );
+    } else {
+      this.branchesToMerge.push( it );
+    }
+
+    console.log( this.branchesToMerge );
   }
 
   openCommitUrl( commit ) {

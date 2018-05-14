@@ -33,6 +33,8 @@ export class RepositoryComponent implements OnInit {
 
   graphBranches: any = [];
 
+  compareData = {};
+
   constructor(
     private githubv3Service: GithubV3Service,
     public route: ActivatedRoute,
@@ -51,8 +53,6 @@ export class RepositoryComponent implements OnInit {
 
       this.loadRepositoryData();
 
-      // this.generateGraph();
-
       this.defaultTab = this.settingsService.getUserSettings( 'default_tab' );
       instanceRepositoryTabs.select( this.defaultTab );
     } );
@@ -69,6 +69,13 @@ export class RepositoryComponent implements OnInit {
   toggleSearchInput() {
     this.hideSearchInput = !this.hideSearchInput;
     this.search = '';
+  }
+
+  compare( client, last ) {
+    this.githubv3Service.getCompareCommits( { owner: this.owner, repo: this.repository, base: client, head: last } )
+      .subscribe( data => {
+        this.compareData = data;
+      } );
   }
 
 }

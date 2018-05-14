@@ -12,6 +12,7 @@ export class ActivitiesComponent implements OnInit {
 
   showLoadingActivities = false;
   commits: any;
+  commitsToCompare = [];
 
   constructor(
     public githubv3Service: GithubV3Service
@@ -36,6 +37,24 @@ export class ActivitiesComponent implements OnInit {
         this.commits = data;
         this.setShowLoadingActivities( false );
       } );
+  }
+
+  changeCheckbox( sha ) {
+    if ( this.commitsToCompare.includes( sha ) ) {
+      this.commitsToCompare.splice( this.commitsToCompare.indexOf( sha ), 1 );
+    } else {
+      if ( this.commitsToCompare.length < 2 ) {
+        this.commitsToCompare.push( sha );
+      }
+    }
+  }
+
+  verifyDisabled( sha ) {
+    if ( this.commitsToCompare.includes( sha ) ) {
+      return false;
+    }
+
+    return true;
   }
 
   // ref - https://gist.github.com/YMA-MDL/b1d7284a8cebc3ecf36829984859656b
