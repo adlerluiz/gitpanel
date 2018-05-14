@@ -25,12 +25,12 @@ export class LoginComponent implements OnInit {
     if ( this.authService.isLogged() ) {
       this.route.navigateByUrl( 'home' );
     }
-    this.aRoute.params.subscribe( params => {
-      console.log(params);
+    this.aRoute.queryParams.subscribe( params => {
       if ( params[ 'access_token' ] ) {
         this.userToken = params[ 'access_token' ];
+        this.login();
       }
-    } );
+    });
   }
 
   login() {
