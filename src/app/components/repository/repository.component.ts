@@ -11,6 +11,10 @@ interface Repository {
   updated_at?: any;
 }
 
+interface CompareData {
+  total_commits?: number;
+}
+
 @Component({
   selector: 'app-repository',
   templateUrl: './repository.component.html',
@@ -33,7 +37,7 @@ export class RepositoryComponent implements OnInit {
 
   // graphBranches: any = [];
 
-  compareData: any;
+  compareData: CompareData = {};
 
   release_client: any;
   release_last: any;
