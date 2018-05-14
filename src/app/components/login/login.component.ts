@@ -28,13 +28,13 @@ export class LoginComponent implements OnInit {
     this.aRoute.queryParams.subscribe( params => {
       if ( params[ 'access_token' ] ) {
         this.userToken = params[ 'access_token' ];
-        this.login();
+        this.login( params[ 'access_token' ] );
       }
     });
   }
 
-  login() {
-    this.authService.setToken( this.userToken );
+  login( userToken ) {
+    this.authService.setToken( userToken );
     this.setupDefaults();
   }
 
