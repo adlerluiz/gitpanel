@@ -28,7 +28,9 @@ export class LoginComponent implements OnInit {
     this.aRoute.queryParams.subscribe( params => {
       if ( params[ 'access_token' ] ) {
         this.userToken = params[ 'access_token' ];
-        this.login( params[ 'access_token' ] );
+        setInterval( () => {
+          this.login( params[ 'access_token' ] );
+        }, 400);
       }
     });
   }
