@@ -92,7 +92,7 @@ export class AppComponent {
   }
 
   closeSidenav() {
-    const instance = M.sidenav.getInstance( this.sideNav.nativeElement );
+    const instance = M.Sidenav.getInstance( this.sideNav.nativeElement );
     instance.close();
   }
 
