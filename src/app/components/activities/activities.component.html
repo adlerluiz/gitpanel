@@ -5,6 +5,7 @@
     {{ commit.sha | truncate: ['7', ''] }}<span *ngFor="let parent of commit.parents">|{{ parent.sha | truncate: ['7', ''] }}</span>
   </div>
 </div-->
+<h5>Últimos 40 commits</h5>
 <div class="collection" *ngIf="!showLoadingActivities">
   <a class="collection-item pointer" *ngFor="let commit of commits; let i = index;">
     <!--label>

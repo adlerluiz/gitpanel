@@ -6,3 +6,12 @@
 td {
   padding: 8px;
 }
+
+[type="checkbox"].filled-in:not(:checked)+span:not(.lever):after {
+  background-color: #FFFFFF !important;
+}
+
+[type="checkbox"].filled-in:checked+span:not(.lever):after {
+  border-color: #5A5A5A !important;
+  background-color: red !important;
+}

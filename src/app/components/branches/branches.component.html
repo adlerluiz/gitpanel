@@ -126,14 +126,20 @@
     <div class="switch">
       Multiplos merges
       <label>
-        Não
-        <input type="checkbox" [(ngModel)]="showCheckbox">
+
+        <input type="checkbox" [(ngModel)]="showMergesCheckbox" (change)="toggleMultMerges( showMergesCheckbox )">
         <span class="lever"></span>
-        Sim
+
       </label>
     </div>
 
-    <button class="btn orange" *ngIf="showCheckbox">Merge</button>
+    <div class="center bold" style="position: absolute; bottom: 30px; right: 30px;" *ngIf="showMergesCheckbox">
+      <a id="tete" class="btn-floating btn-large waves-effect waves-light red" (click)="mergeSelectedBranches()">
+        {{ branchesToMerge.length }}
+      </a>
+      <br />
+      Branch<span *ngIf="branchesToMerge.length === 0 || branchesToMerge.length > 1">es</span> selecionada<span *ngIf="branchesToMerge.length === 0 || branchesToMerge.length > 1">s</span>
+    </div>
 
   </div>
 
@@ -144,7 +150,7 @@
     <tr>
       <th width="10%" style="padding: 26px !important;"> Branch </th>
       <th width="10%"> Commit </th>
-      <th width="2%" class="uppercase center" *ngFor="let branchToCompareData of branchesToCompareValidated;">
+      <th width="2%" class="uppercase center" *ngFor="let branchToCompareData of branchesToCompareValidated">
         <span>{{ branchToCompareData }}</span>
       </th>
       <th width="10%"></th>
@@ -166,7 +172,7 @@
 
       <td *ngFor="let branchToCompareData of branchesToCompareValidated">
         <label style="float: left; position: absolute; margin-top: 8px; margin-left: -10px;">
-          <input type="checkbox" class="filled-in" *ngIf="showCheckbox && verifyIfHaveAheadCommits( branch.compare[ branchToCompareData ] )" (change)="checkboxToCompare( branch, branchToCompareData )" />
+          <input type="checkbox" class="filled-in" *ngIf="showMergesCheckbox && verifyIfHaveAheadCommits( branch.compare[ branchToCompareData ] )" (change)="checkboxToCompare( branch, branchToCompareData )" />
           <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
         </label>
 

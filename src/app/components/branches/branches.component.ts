@@ -48,6 +48,8 @@ export class BranchesComponent implements OnInit, OnChanges {
   @ViewChild('dragDivMerge') dragDivMerge: ElementRef;
   @ViewChild('dropDivMerge') dropDivMerge: ElementRef;
 
+  // @ViewChild('tapTarget') tapTarget: ElementRef;
+
   pattSql: any = /(\.sql)/gmi;
   apiExceded = false;
 
@@ -76,6 +78,7 @@ export class BranchesComponent implements OnInit, OnChanges {
 
     M.Modal.init( elems );
     M.Tooltip.init( elemsTooltip );
+    // M.TapTarget.init( this.tapTarget.nativeElement );
   }
 
   ngOnChanges( changes: SimpleChanges ) {
@@ -379,15 +382,31 @@ export class BranchesComponent implements OnInit, OnChanges {
   }
 
   checkboxToCompare( branch, branchToMerge ) {
-    const it = { branch: branch.name, branchToMerge: branchToMerge };
+    const it = branch.name + '>|<' +  branchToMerge;
 
-    if ( this.branchesToMerge.includes( it ) ) {
-      this.branchesToMerge.splice( this.branchesToMerge.indexOf( it ), 1 );
-    } else {
+    if ( this.branchesToMerge.length === 0 ) {
       this.branchesToMerge.push( it );
+    } else {
+      if ( this.branchesToMerge.includes( it ) ) {
+        this.branchesToMerge.splice( this.branchesToMerge.indexOf( it ), 1 );
+      } else {
+        this.branchesToMerge.push( it );
+      }
     }
+  }
 
-    console.log( this.branchesToMerge );
+  mergeSelectedBranches() {
+    this.branchesToMerge.forEach( ( data: string ) => {
+      const res = data.split( '>|<' );
+
+      this.mergeBranchesCompare( { name: res[ 0 ], compare_with: res[ 1 ] } );
+    } );
+  }
+
+  toggleMultMerges( value ) {
+    if ( value === false ) {
+      this.branchesToMerge = [];
+    }
   }
 
   openCommitUrl( commit ) {
