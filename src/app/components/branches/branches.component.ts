@@ -64,6 +64,8 @@ export class BranchesComponent implements OnInit, OnChanges {
 
   branchesToMerge = [];
 
+  showMergesCheckbox: any;
+
   constructor(
     private githubv3Service: GithubV3Service,
     public route: ActivatedRoute,

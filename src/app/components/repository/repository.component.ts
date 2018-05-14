@@ -19,7 +19,7 @@ interface Repository {
 export class RepositoryComponent implements OnInit {
   @ViewChild('repositoryTabs') repositoryTabs: ElementRef;
 
-  commits: any;
+  // commits: any;
 
   owner: any;
   repository: any;
@@ -31,9 +31,12 @@ export class RepositoryComponent implements OnInit {
 
   defaultTab: any;
 
-  graphBranches: any = [];
+  // graphBranches: any = [];
 
   compareData = {};
+
+  release_client: any;
+  release_last: any;
 
   constructor(
     private githubv3Service: GithubV3Service,
