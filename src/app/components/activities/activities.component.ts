@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { GithubV3Service } from '../../providers/github-v3.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { GithubV3Service } from '../../providers/github-v3.service';
   templateUrl: './activities.component.html',
   styleUrls: ['./activities.component.css']
 })
-export class ActivitiesComponent implements OnInit {
+export class ActivitiesComponent implements OnInit, OnChanges {
   @Input() owner;
   @Input() repository;
 
@@ -20,6 +20,24 @@ export class ActivitiesComponent implements OnInit {
 
   ngOnInit() {
     this.getCommits();
+  }
+
+  ngOnChanges( changes: SimpleChanges ) {
+    let reload = false;
+
+    if ( changes.owner ) {
+      this.owner = changes.owner.currentValue;
+      reload = true;
+    }
+
+    if ( changes.repository ) {
+      this.repository = changes.repository.currentValue;
+      reload = true;
+    }
+
+    if ( reload ) {
+      this.getCommits();
+    }
   }
 
   openCommitUrl( commit ) {
