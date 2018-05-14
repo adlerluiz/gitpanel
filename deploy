@@ -20,4 +20,14 @@ cp .htaccess dist/gitpanel/
 echo
 echo "Feito"
 
+echo "============= Copiando oauth para /dist ============="
+cp oauth.php dist/gitpanel/
+
+
+echo "============= Copiando .env para /dist ============="
+cp .env dist/gitpanel/
+
+echo
+echo "Feito"
+
 echo "============= Deploy Finalizado ============="
