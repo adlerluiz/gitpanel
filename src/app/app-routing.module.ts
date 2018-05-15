@@ -48,7 +48,6 @@ export class AppRoutingModule {
   ) {
     if ( !this.validateUrl() ) {
       if ( !this.authService.isLogged() ) {
-        console.log('não logado');
         this.route.navigateByUrl( 'login' );
       }
     }
