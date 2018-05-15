@@ -14,11 +14,11 @@ const routes: Routes = [
         component: HomeComponent
     },
     {
-        path: 'login/:token',
+        path: 'login',
         component: LoginComponent
     },
     {
-        path: 'login',
+        path: 'login/:token',
         component: LoginComponent
     },
     {
