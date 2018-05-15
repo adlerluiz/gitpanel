@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
       }
     });*/
 
-    this.route.params.subscribe( params => {
+    this.activatedRoute.params.subscribe( params => {
       if ( params[ 'token' ] ) {
         this.userToken = params[ 'token' ];
         this.login( params[ 'token' ] );
