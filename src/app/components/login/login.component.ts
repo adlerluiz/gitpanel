@@ -31,12 +31,16 @@ export class LoginComponent implements OnInit {
       }
     });
 
-    /*this.activatedRoute.params.subscribe( params => {
-      if ( params[ 'token' ] ) {
-        this.userToken = params[ 'token' ];
-        this.login( params[ 'token' ] );
+    this.activatedRoute.params.subscribe( params => {
+      if ( params[ 'access_token' ] ) {
+        this.userToken = params[ 'access_token' ];
+        this.login( params[ 'access_token' ] );
+      } else {
+        if ( this.authService.isLogged() ) {
+          this.route.navigateByUrl( 'home' );
+        }
       }
-    } );*/
+    } );
   }
 
   ngOnInit() {

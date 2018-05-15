@@ -18,6 +18,10 @@ const routes: Routes = [
         component: LoginComponent
     },
     {
+        path: 'login/:token',
+        component: LoginComponent
+    },
+    {
         path: 'settings',
         component: SettingsComponent
     },
@@ -32,7 +36,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { useHash: false, enableTracing: false } ) ],
+    imports: [RouterModule.forRoot(routes, { useHash: true, enableTracing: false } ) ],
     exports: [RouterModule]
 })
 export class AppRoutingModule {
