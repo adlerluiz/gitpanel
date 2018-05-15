@@ -56,7 +56,10 @@ export class AppRoutingModule {
   }
 
   validateUrl(  ) {
-    return location.pathname.indexOf( 'validate/' );
+    if ( location.pathname.indexOf( 'validate/' ) != -1 ) {
+      return true;
+    }
+    return false;
   }
 
 }
