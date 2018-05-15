@@ -18,10 +18,6 @@ const routes: Routes = [
         component: LoginComponent
     },
     {
-        path: 'validate/:token',
-        component: LoginComponent
-    },
-    {
         path: 'settings',
         component: SettingsComponent
     },
@@ -45,21 +41,13 @@ export class AppRoutingModule {
     public authService: AuthService,
     public route: Router,
   ) {
-    if ( this.validateUrl() ) {
-
-    } else {
-      if ( !this.authService.isLogged() ) {
-        this.route.navigateByUrl( 'login' );
-      }
+    if ( !this.authService.isLogged() ) {
+      this.route.navigateByUrl( 'login' );
     }
-
   }
 
   validateUrl(  ) {
-    if ( location.pathname.indexOf( 'validate/' ) != -1 ) {
-      return true;
-    }
-    return false;
+    // return location.pathname.indexOf( 'validate/' );
   }
 
 }
