@@ -21,6 +21,7 @@ import { RepositoryComponent } from './components/repository/repository.componen
 import { BranchesComponent } from './components/branches/branches.component';
 import { LoginComponent } from './components/login/login.component';
 import { ActivitiesComponent } from './components/activities/activities.component';
+import { CheckTokenComponent } from './components/check-token/check-token.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ActivitiesComponent } from './components/activities/activities.componen
     BranchesComponent,
     LoginComponent,
     SettingsComponent,
-    ActivitiesComponent
+    ActivitiesComponent,
+    CheckTokenComponent
   ],
   imports: [
     BrowserModule,

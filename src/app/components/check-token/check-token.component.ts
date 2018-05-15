@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../providers/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../providers/auth.service';
 import { GithubV3Service } from '../../providers/github-v3.service';
 import { SettingsService } from '../../providers/settings.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-check-token',
+  templateUrl: './check-token.component.html',
+  styleUrls: ['./check-token.component.css']
 })
-export class LoginComponent implements OnInit {
-
-  userToken = '';
+export class CheckTokenComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
@@ -20,8 +18,10 @@ export class LoginComponent implements OnInit {
     public route: Router,
     public activatedRoute: ActivatedRoute
   ) {
-    this.activatedRoute.queryParams.subscribe( params => {
-      console.log(params);
+  }
+
+  ngOnInit() {
+    this.activatedRoute.params.subscribe( params => {
       if ( params[ 'access_token' ] ) {
         this.userToken = params[ 'access_token' ];
         this.login( params[ 'access_token' ] );
@@ -31,23 +31,19 @@ export class LoginComponent implements OnInit {
         }
       }
     } );
+    /*
+    this.activatedRoute.queryParams.subscribe( params => {
+      console.log( params );
 
-    /*this.activatedRoute.params.subscribe( params => {
       if ( params[ 'access_token' ] ) {
         this.userToken = params[ 'access_token' ];
         this.login( params[ 'access_token' ] );
       } else {
         if ( this.authService.isLogged() ) {
-          // this.route.navigateByUrl( 'home' );
+          this.route.navigateByUrl( 'home' );
         }
       }
     } );*/
-  }
-
-  ngOnInit() {
-    if ( this.authService.isLogged() ) {
-      // this.route.navigateByUrl( 'home' );
-    }
   }
 
   login( userToken ) {
