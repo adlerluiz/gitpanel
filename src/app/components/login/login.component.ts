@@ -20,12 +20,19 @@ export class LoginComponent implements OnInit {
     public route: Router,
     public activatedRoute: ActivatedRoute
   ) {
-    this.activatedRoute.queryParams.subscribe( params => {
+    /*this.activatedRoute.queryParams.subscribe( params => {
       if ( params[ 'access_token' ] ) {
         this.userToken = params[ 'access_token' ];
         this.login( params[ 'access_token' ] );
       }
-    });
+    });*/
+
+    this.route.params.subscribe( params => {
+      if ( params[ 'token' ] ) {
+        this.userToken = params[ 'token' ];
+        this.login( params[ 'token' ] );
+      }
+    } );
   }
 
   ngOnInit() {

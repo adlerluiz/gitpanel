@@ -18,6 +18,10 @@ const routes: Routes = [
         component: LoginComponent
     },
     {
+        path: 'login/:token',
+        component: LoginComponent
+    },
+    {
         path: 'settings',
         component: SettingsComponent
     },
