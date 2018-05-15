@@ -26,16 +26,18 @@ export class LoginComponent implements OnInit {
         this.login( params[ 'access_token' ] );
       }
     });*/
+  }
 
+  ngOnInit() {
     this.activatedRoute.params.subscribe( params => {
+      console.log( params );
+
       if ( params[ 'token' ] ) {
         this.userToken = params[ 'token' ];
         this.login( params[ 'token' ] );
       }
     } );
-  }
 
-  ngOnInit() {
     if ( this.authService.isLogged() ) {
       this.route.navigateByUrl( 'home' );
     }
