@@ -24,6 +24,7 @@ export class CheckTokenComponent implements OnInit {
     this.activatedRoute.params.subscribe( params => {
       if ( params[ 'access_token' ] ) {
         this.login( params[ 'access_token' ] );
+        this.route.navigateByUrl( 'home' );
       } else {
         if ( this.authService.isLogged() ) {
           this.route.navigateByUrl( 'home' );
