@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../providers/settings.service';
 import { AuthService } from '../../providers/auth.service';
 
+interface User {
+  name?: string;
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,7 +15,7 @@ export class HomeComponent implements OnInit {
 
   lastOrganization: any;
   lastRepository: any;
-  user: any;
+  user: User;
 
   constructor(
     public settingsService: SettingsService,

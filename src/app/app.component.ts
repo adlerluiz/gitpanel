@@ -5,6 +5,11 @@ import { GithubV3Service } from './providers/github-v3.service';
 import { SettingsService } from './providers/settings.service';
 declare let M: any;
 
+interface User {
+  name?: string;
+  avatar_url?: string;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,7 +18,7 @@ declare let M: any;
 export class AppComponent {
   @ViewChild('sideNav') sideNav: ElementRef;
 
-  user: object = {};
+  user: User;
 
   organization: any;
   organizations: any;
