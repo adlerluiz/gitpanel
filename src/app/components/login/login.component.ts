@@ -18,9 +18,9 @@ export class LoginComponent implements OnInit {
     public githubV3Service: GithubV3Service,
     public settingsService: SettingsService,
     public route: Router,
-    public aRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute
   ) {
-    this.aRoute.queryParams.subscribe( params => {
+    this.activatedRoute.queryParams.subscribe( params => {
       if ( params[ 'access_token' ] ) {
         this.userToken = params[ 'access_token' ];
         this.login( params[ 'access_token' ] );
