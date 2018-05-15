@@ -18,7 +18,7 @@ const routes: Routes = [
         component: LoginComponent
     },
     {
-        path: 'login/:token',
+        path: 'validate/:token',
         component: LoginComponent
     },
     {
