@@ -23,7 +23,6 @@ export class CheckTokenComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe( params => {
       if ( params[ 'access_token' ] ) {
-        this.userToken = params[ 'access_token' ];
         this.login( params[ 'access_token' ] );
       } else {
         if ( this.authService.isLogged() ) {
