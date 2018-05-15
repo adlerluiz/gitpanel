@@ -29,8 +29,7 @@
         $error = curl_error($ch);
 
         curl_close($ch);
-        // header("Location: https://".$_SERVER['HTTP_HOST']."/gitpanel-new/#/validate?access_token=" . $response->access_token);
-        header("Location: https://".$_SERVER['HTTP_HOST']."/gitpanel-new/#/validate/" . $response->access_token);
+        header("Location: https://".$_SERVER['HTTP_HOST']."/gitpanel-new/#/login?access_token=" . $response->access_token);
     } catch (\Exception $ex) {
         return array();
     }
