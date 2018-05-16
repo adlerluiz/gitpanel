@@ -31,19 +31,6 @@ export class CheckTokenComponent implements OnInit {
         }
       }
     } );
-    /*
-    this.activatedRoute.queryParams.subscribe( params => {
-      console.log( params );
-
-      if ( params[ 'access_token' ] ) {
-        this.userToken = params[ 'access_token' ];
-        this.login( params[ 'access_token' ] );
-      } else {
-        if ( this.authService.isLogged() ) {
-          this.route.navigateByUrl( 'home' );
-        }
-      }
-    } );*/
   }
 
   login( userToken ) {

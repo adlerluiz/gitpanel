@@ -13,7 +13,7 @@ export class AuthService {
   }
 
   setToken( token ) {
-    localStorage.setItem( 'oauth_token', token );
+    localStorage.setItem( 'token_github', token );
   }
 
   getUser() {
@@ -21,8 +21,7 @@ export class AuthService {
   }
 
   getToken() {
-    return localStorage.getItem( 'oauth_token' );
-    // return 'feee80edd4e30eef1a236783ac21f433dd14f3ce';
+    return localStorage.getItem( 'token_github' );
   }
 
   /**
