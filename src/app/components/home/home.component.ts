@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../providers/settings.service';
 import { AuthService } from '../../providers/auth.service';
+import { Router } from '@angular/router';
 
 interface User {
   name?: string;
@@ -19,8 +20,12 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public settingsService: SettingsService,
-    public authService: AuthService
+    public authService: AuthService,
+    public route: Router
   ) {
+    if ( !this.authService.isLogged() ) {
+      this.route.navigateByUrl( 'login' );
+    }
     this.lastOrganization = this.settingsService.getLastOrganization();
     this.lastRepository = this.settingsService.getLastRepository();
     this.user = this.authService.getUser();

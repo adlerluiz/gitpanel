@@ -13,7 +13,11 @@ export class AuthService {
   }
 
   setToken( token ) {
-    localStorage.setItem( 'token_github', token );
+    if ( token == null ) {
+      localStorage.removeItem('token_github' );
+    } else {
+      localStorage.setItem( 'token_github', token );
+    }
   }
 
   getUser() {

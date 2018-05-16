@@ -11,6 +11,8 @@ import { SettingsService } from '../../providers/settings.service';
 })
 export class CheckTokenComponent implements OnInit {
 
+  arrOrgs = [];
+
   constructor(
     public authService: AuthService,
     public githubV3Service: GithubV3Service,
@@ -35,34 +37,47 @@ export class CheckTokenComponent implements OnInit {
 
   login( userToken ) {
     this.authService.setToken( userToken );
-    this.setupDefaults();
+
+    this.githubV3Service.getUserLogged()
+      .subscribe( ( data: any ) => {
+          this.authService.setUser( { name: data.name, login: data.login, avatar_url: data.avatar_url } );
+          this.settingsService.setLastOrganization( data.login );
+
+          // arrOrgs.push ( { login: data.login, avatar_url: data.avatar_url, type: 'User' } );
+          this.arrOrgs.push ( { login: data.login, avatar_url: data.avatar_url, type: 'User' } );
+          this.setupDefaults();
+      }, () => {
+        this.authService.setToken( null );
+      } );
   }
 
   setupDefaults() {
-    const arrOrgs = [];
+    // const arrOrgs = [];
 
     this.settingsService.setUserSettings( 'default_branches', [ 'qa', 'homolog', 'master' ] );
 
-    this.githubV3Service.getUserLogged()
+    /*this.githubV3Service.getUserLogged()
       .subscribe( ( data: any ) => {
         this.authService.setUser( { name: data.name, login: data.login, avatar_url: data.avatar_url } );
         this.settingsService.setLastOrganization( data.login );
 
-        arrOrgs.push ( { login: data.login, avatar_url: data.avatar_url, type: 'User' } );
-      }, () => {} );
+        // arrOrgs.push ( { login: data.login, avatar_url: data.avatar_url, type: 'User' } );
+        this.arrOrgs.push ( { login: data.login, avatar_url: data.avatar_url, type: 'User' } );
+      }, () => {} );*/
 
     this.githubV3Service.getOrgs()
       .subscribe( ( data: any ) => {
           if ( data.length ) {
             data.forEach( org => {
-              arrOrgs.push ( { login: org.login, avatar_url: org.avatar_url, type: 'Organization' } );
+              // arrOrgs.push ( { login: org.login, avatar_url: org.avatar_url, type: 'Organization' } );
+              this.arrOrgs.push ( { login: org.login, avatar_url: org.avatar_url, type: 'Organization' } );
             } );
           }
         },
         () => {},
         () => {
           setTimeout( () => {
-            this.settingsService.setOrganizations( arrOrgs );
+            this.settingsService.setOrganizations( this.arrOrgs );
             location.reload();
           }, 300 );
         } );
