@@ -92,7 +92,7 @@ export class AppComponent {
   }
 
   logout() {
-    localStorage.clear();
+    this.authService.setToken( null );
     this.refresh();
   }
 
