@@ -101,4 +101,8 @@ export class AppComponent {
     instance.close();
   }
 
+  isOnline() {
+    return navigator.onLine;
+  }
+
 }

@@ -14,7 +14,7 @@
 </ul>
 
 <!-- Barra superior -->
-<nav class="blue darken-1">
+<nav class="darken-1" [ngClass]="{ blue: isOnline(), orange: !isOnline() }">
 
   <div class="nav-wrapper">
 

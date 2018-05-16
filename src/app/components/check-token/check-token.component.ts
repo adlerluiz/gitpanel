@@ -43,7 +43,6 @@ export class CheckTokenComponent implements OnInit {
           this.authService.setUser( { name: data.name, login: data.login, avatar_url: data.avatar_url } );
           this.settingsService.setLastOrganization( data.login );
 
-          // arrOrgs.push ( { login: data.login, avatar_url: data.avatar_url, type: 'User' } );
           this.arrOrgs.push ( { login: data.login, avatar_url: data.avatar_url, type: 'User' } );
           this.setupDefaults();
       }, () => {
@@ -52,24 +51,12 @@ export class CheckTokenComponent implements OnInit {
   }
 
   setupDefaults() {
-    // const arrOrgs = [];
-
     this.settingsService.setUserSettings( 'default_branches', [ 'qa', 'homolog', 'master' ] );
-
-    /*this.githubV3Service.getUserLogged()
-      .subscribe( ( data: any ) => {
-        this.authService.setUser( { name: data.name, login: data.login, avatar_url: data.avatar_url } );
-        this.settingsService.setLastOrganization( data.login );
-
-        // arrOrgs.push ( { login: data.login, avatar_url: data.avatar_url, type: 'User' } );
-        this.arrOrgs.push ( { login: data.login, avatar_url: data.avatar_url, type: 'User' } );
-      }, () => {} );*/
 
     this.githubV3Service.getOrgs()
       .subscribe( ( data: any ) => {
           if ( data.length ) {
             data.forEach( org => {
-              // arrOrgs.push ( { login: org.login, avatar_url: org.avatar_url, type: 'Organization' } );
               this.arrOrgs.push ( { login: org.login, avatar_url: org.avatar_url, type: 'Organization' } );
             } );
           }
