@@ -47,9 +47,7 @@ export class AppRoutingModule {
     public route: Router,
   ) {
     if ( !this.validateUrl() ) {
-      if ( !this.authService.isLogged() ) {
-        this.route.navigateByUrl( 'login' );
-      }
+      this.authService.handleLogin();
     }
   }
 

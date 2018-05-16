@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { SettingsService } from './settings.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
 
   constructor(
-    settingsService: SettingsService
+    public settingsService: SettingsService,
+    public route: Router
   ) { }
 
   setUser( user ) {
@@ -37,6 +39,12 @@ export class AuthService {
        return this.getToken();
     }
     return false;
+  }
+
+  handleLogin() {
+    if ( !this.isLogged() ) {
+      this.route.navigateByUrl( 'login' );
+    }
   }
 
 }

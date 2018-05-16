@@ -23,9 +23,7 @@ export class HomeComponent implements OnInit {
     public authService: AuthService,
     public route: Router
   ) {
-    if ( !this.authService.isLogged() ) {
-      this.route.navigateByUrl( 'login' );
-    }
+    this.authService.handleLogin();
     this.lastOrganization = this.settingsService.getLastOrganization();
     this.lastRepository = this.settingsService.getLastRepository();
     this.user = this.authService.getUser();
