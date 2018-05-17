@@ -412,6 +412,10 @@ export class BranchesComponent implements OnInit, OnChanges {
     }
   }
 
+  openBranchCommitUrl( obj ) {
+    window.open('https://github.com/' + this.owner + '/' + this.repository + '/commit/' + obj.commit.sha );
+  }
+
   openCommitUrl( commit ) {
     window.open( commit.html_url );
   }

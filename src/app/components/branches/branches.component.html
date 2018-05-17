@@ -166,7 +166,7 @@
       </td>
 
       <td>
-        <span class="hide-on-med-and-down"> {{ branch.commit.sha }}</span>
+        <span class="hide-on-med-and-down pointer" (click)="openBranchCommitUrl( branch )"> {{ branch.commit.sha }}</span>
         <span class="hide-on-large-only"> {{ branch.commit.sha | truncate:[ 7, '' ] }}</span>
       </td>
 
