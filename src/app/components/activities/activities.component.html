@@ -1,13 +1,8 @@
 <!--canvas id="gitGraph"></canvas-->
 
-<!--div>
-  <div *ngFor="let commit of commits">
-    {{ commit.sha | truncate: ['7', ''] }}<span *ngFor="let parent of commit.parents">|{{ parent.sha | truncate: ['7', ''] }}</span>
-  </div>
-</div-->
-<h5>Últimos 40 commits</h5>
+<h5 *ngIf="commits.length">Últimos {{ commits.length }} commits</h5>
 <div class="collection" *ngIf="!showLoadingActivities">
-  <a class="collection-item pointer" *ngFor="let commit of commits; let i = index;">
+  <a class="collection-item pointer" *ngFor="let commit of commits">
     <!--label>
       <input [disabled]="commitsToCompare.length == 2 && verifyDisabled( commit.sha )" type="checkbox" (change)="changeCheckbox( commit.sha )" />
       <span>Red</span>
