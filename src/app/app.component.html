@@ -20,7 +20,7 @@
 
     <a class="brand-logo left">
       <span data-target="slide-out" class="sidenav-trigger">
-        <i class="material-icons pointer" *ngIf="isLogged()" (click)="loadRepositoriesByOrganization()">menu</i>
+        <i class="material-icons pointer" *ngIf="isLogged()" (click)="loadFavoritesRepositoriesByOrganization()">menu</i>
         Git Panel
       </span>
     </a>
@@ -74,12 +74,25 @@
       </div>
     </div>
   </li>
-  <li> <a class="subheader">Repos ({{ repositories.length || 0 }})</a> </li>
-  <li style="overflow: auto; height: 85%; padding: 0 15px;">
+
+  <li style="min-height: 15%; padding: 0 15px;">
     <div>
+      <ul>
+        <li *ngFor="let repo of favouritesRepositories | orderByImpure: 'name'">
+          <a [ngClass]="{ 'grey lighten-4': repo.name === currentRepositoryName }" [routerLink]="[ '/r', organization, repo.name ]" (click)="closeSidenav(); searchRepository( repo )">
+            <i class="material-icons tiny left yellow-text darken-1" style="margin: 0 0 0 -26px;">start</i> {{ repo.name }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </li>
 
-      <div class="ph-item" style="border: 0;" *ngIf="!repositories.length">
+  <li *ngIf="!loadingRepositories && repositories.length == 0"> <a class="right-align grey-text" (click)="loadRepositoriesByOrganization()">ver todos</a> </li>
+  <li *ngIf="!loadingRepositories && repositories.length != 0"> <a class="subheader">Repos ({{ repositories.length || 0 }})</a> </li>
 
+  <li style="overflow: auto; height: 60%; padding: 0 15px;">
+    <div>
+      <div class="ph-item" style="border: 0;" *ngIf="loadingRepositories">
         <div class="ph-col-12">
           <div class="ph-row">
             <div class="ph-col-10"></div>
@@ -134,9 +147,7 @@
           </div>
 
         </div>
-
       </div>
-
       <ul>
         <li *ngFor="let repo of repositories | orderByImpure: 'name' | filterBy: [ 'name' ]: formSearchRepository">
           <a [ngClass]="{ 'grey lighten-4': repo.name === currentRepositoryName }" [routerLink]="[ '/r', organization, repo.name ]" (click)="closeSidenav(); searchRepository( repo )">{{ repo.name }}</a>

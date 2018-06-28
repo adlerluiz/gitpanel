@@ -23,9 +23,21 @@ export class AppComponent {
   organization: any;
   organizations: any;
   repositories: any = [];
+  favouritesRepositories: any = [
+    {
+      name: 'antt'
+    },
+    {
+      name: 'collab'
+    },
+    {
+      name: 'mma'
+    }
+  ];
 
   currentRepositoryName = '';
   formSearchRepository = '';
+  loadingRepositories = false;
 
   constructor(
     public authService: AuthService,
@@ -36,7 +48,7 @@ export class AppComponent {
     this.organization = this.settingsService.getLastOrganization();
     this.organizations = this.settingsService.getOrganizations();
     if ( this.authService.isLogged() ) {
-      this.loadRepositoriesByOrganization();
+      // this.loadRepositoriesByOrganization();
     }
     this.currentRepositoryName = this.settingsService.getLastRepository();
   }
@@ -46,9 +58,10 @@ export class AppComponent {
   }
 
   setDefaultOrganization( organization: string ) {
+    this.repositories = [];
     this.organization = organization;
     this.settingsService.setLastOrganization( organization );
-    this.getRepositoriesByOrganization( organization );
+    // this.getRepositoriesByOrganization( organization );
   }
 
   getRepositoriesByOrganization( organization ) {
@@ -61,6 +74,7 @@ export class AppComponent {
             .subscribe( data2 => {
               if ( data2 ) {
                 this.repositories = data2;
+                this.hideLoadingRepositories();
               }
             } );
         } else if ( data.type === 'User' ) {
@@ -68,8 +82,10 @@ export class AppComponent {
             .subscribe( ( data2: any ) => {
               if ( data2 ) {
                 this.repositories = data2;
+                this.hideLoadingRepositories();
               } else {
                 this.repositories = [];
+                this.hideLoadingRepositories();
               }
             } );
         }
@@ -78,8 +94,21 @@ export class AppComponent {
   }
 
   loadRepositoriesByOrganization() {
+    this.showLoadingRepositories();
     this.organization = this.settingsService.getLastOrganization();
     this.getRepositoriesByOrganization( this.organization );
+  }
+
+  loadFavoritesRepositoriesByOrganization() {
+    this.repositories = [];
+  }
+
+  showLoadingRepositories() {
+    this.loadingRepositories = true;
+  }
+
+  hideLoadingRepositories() {
+    this.loadingRepositories = false;
   }
 
   searchRepository( repo ) {
