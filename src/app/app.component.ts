@@ -23,7 +23,7 @@ export class AppComponent {
   organization: any;
   organizations: any;
   repositories: any = [];
-  favoritesRepositories: any = [];
+  favoritesRepositoriesByOrganization: any = [];
 
   currentRepositoryName = '';
   formSearchRepository = '';
@@ -51,6 +51,7 @@ export class AppComponent {
     this.repositories = [];
     this.organization = organization;
     this.settingsService.setLastOrganization( organization );
+    this.favoritesRepositoriesByOrganization = this.settingsService.getFavoriteRepositoriesByOwner( this.organization );
     // this.getRepositoriesByOrganization( organization );
   }
 
@@ -92,8 +93,7 @@ export class AppComponent {
   loadFavoritesRepositoriesByOrganization() {
     this.repositories = [];
 
-    this.favoritesRepositories = this.settingsService.getFavoriteRepositoriesByOwner( this.organization );
-    console.log(this.favoritesRepositories);
+    this.favoritesRepositoriesByOrganization = this.settingsService.getFavoriteRepositoriesByOwner( this.organization );
   }
 
   showLoadingRepositories() {

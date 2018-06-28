@@ -75,10 +75,16 @@
     </div>
   </li>
 
-  <li style="min-height: 15%; padding: 0 15px;">
-    <div>
+  <li style="min-height: 10%; padding: 0 15px;">
+
+    <div *ngIf="!favoritesRepositoriesByOrganization.length" class="grey-text center" style="border: 1px solid #EEE;">
+      <div> <i class="material-icons">star</i> </div>
+      <div>Nenhum favorito adicionado</div>
+    </div>
+
+    <div *ngIf="favoritesRepositoriesByOrganization.length">
       <ul>
-        <li *ngFor="let repo of favoritesRepositories">
+        <li *ngFor="let repo of favoritesRepositoriesByOrganization">
           <a [ngClass]="{ 'grey lighten-4': repo === currentRepositoryName }" [routerLink]="[ '/r', organization, repo ]" (click)="closeSidenav(); searchRepository( repo )">
             <i class="material-icons tiny left yellow-text darken-1" style="margin: 0 0 0 -26px;">start</i> {{ repo }}
           </a>
