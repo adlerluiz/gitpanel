@@ -71,4 +71,55 @@ export class SettingsService {
     return settings[ name ];
   }
 
+  setFavoriteRepository( owner, repository ) {
+    let favorites: object;
+
+    if ( localStorage.getItem( 'favorites_repositories' ) ) {
+      favorites = JSON.parse( localStorage.getItem( 'favorites_repositories' ) );
+    } else {
+      favorites = {};
+    }
+
+    if ( favorites[ owner ] ) {
+      let alreadyHave = false;
+
+      favorites[ owner ].forEach( ( data, index ) => {
+        if ( data === repository ) {
+          alreadyHave = true;
+          favorites[ owner ].splice( index, 1 );
+          return;
+        }
+      } );
+
+      if ( !alreadyHave ) {
+        favorites[ owner ].push( repository );
+      }
+
+    } else {
+      favorites[ owner ] = [];
+      favorites[ owner ].push( repository );
+    }
+
+    localStorage.setItem( 'favorites_repositories' , JSON.stringify( favorites ) );
+  }
+
+  isFavoriteRepository( owner, repository ) {
+    let result = false;
+    const favorites = JSON.parse( localStorage.getItem( 'favorites_repositories' ) );
+
+    favorites[ owner ].forEach( ( data ) => {
+      if ( data === repository ) {
+        result = repository;
+      }
+    } );
+
+    return result;
+  }
+
+  getFavoriteRepositoriesByOwner( owner ) {
+    const favorites = JSON.parse( localStorage.getItem( 'favorites_repositories' ) );
+
+    return favorites[ owner ] || [];
+  }
+
 }

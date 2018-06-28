@@ -23,17 +23,7 @@ export class AppComponent {
   organization: any;
   organizations: any;
   repositories: any = [];
-  favouritesRepositories: any = [
-    {
-      name: 'antt'
-    },
-    {
-      name: 'collab'
-    },
-    {
-      name: 'mma'
-    }
-  ];
+  favoritesRepositories: any = [];
 
   currentRepositoryName = '';
   formSearchRepository = '';
@@ -101,6 +91,9 @@ export class AppComponent {
 
   loadFavoritesRepositoriesByOrganization() {
     this.repositories = [];
+
+    this.favoritesRepositories = this.settingsService.getFavoriteRepositoriesByOwner( this.organization );
+    console.log(this.favoritesRepositories);
   }
 
   showLoadingRepositories() {
@@ -112,7 +105,7 @@ export class AppComponent {
   }
 
   searchRepository( repo ) {
-    this.currentRepositoryName = repo.name;
+    this.currentRepositoryName = repo.name || repo;
     this.formSearchRepository = '';
   }
 

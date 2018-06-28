@@ -78,9 +78,9 @@
   <li style="min-height: 15%; padding: 0 15px;">
     <div>
       <ul>
-        <li *ngFor="let repo of favouritesRepositories | orderByImpure: 'name'">
-          <a [ngClass]="{ 'grey lighten-4': repo.name === currentRepositoryName }" [routerLink]="[ '/r', organization, repo.name ]" (click)="closeSidenav(); searchRepository( repo )">
-            <i class="material-icons tiny left yellow-text darken-1" style="margin: 0 0 0 -26px;">start</i> {{ repo.name }}
+        <li *ngFor="let repo of favoritesRepositories">
+          <a [ngClass]="{ 'grey lighten-4': repo === currentRepositoryName }" [routerLink]="[ '/r', organization, repo ]" (click)="closeSidenav(); searchRepository( repo )">
+            <i class="material-icons tiny left yellow-text darken-1" style="margin: 0 0 0 -26px;">start</i> {{ repo }}
           </a>
         </li>
       </ul>

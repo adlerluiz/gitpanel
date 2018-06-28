@@ -42,6 +42,8 @@ export class RepositoryComponent implements OnInit {
   release_client: any;
   release_last: any;
 
+  isFavoriteRepository = false;
+
   constructor(
     private githubv3Service: GithubV3Service,
     public route: ActivatedRoute,
@@ -59,6 +61,7 @@ export class RepositoryComponent implements OnInit {
       this.settingsService.setLastRepository( this.repository );
 
       this.loadRepositoryData();
+      this.checkIsFavoriteRepository();
 
       this.defaultTab = this.settingsService.getUserSettings( 'default_tab' );
       instanceRepositoryTabs.select( this.defaultTab );
@@ -71,6 +74,15 @@ export class RepositoryComponent implements OnInit {
       .subscribe( data => {
         this.repositoryData = data;
       } );
+  }
+
+  toggleFavorite() {
+    this.settingsService.setFavoriteRepository( this.owner, this.repository );
+    this.checkIsFavoriteRepository();
+  }
+
+  checkIsFavoriteRepository() {
+    this.isFavoriteRepository = this.settingsService.isFavoriteRepository( this.owner, this.repository );
   }
 
   toggleSearchInput() {
