@@ -114,7 +114,7 @@
   </div>
 
   <div class="row center">
-    <button class="btn blue" [disabled]="!release_client || !release_last" (click)="compare( release_client, release_last )"> Gerar </button>
+    <button class="btn blue" [disabled]="!release_client || !release_last" (click)="compare( release_client, release_last )"> Comparar </button>
   </div>
 
   <div class="row" *ngIf="compareData.total_commits">
@@ -129,8 +129,8 @@
 
 </div>
 
-<div id="settings" class="col s12 container-large">
+<!--div id="settings" class="col s12 container-large">
   <h5>Configurações para branch {{ repository }}</h5>
-</div>
+</div-->
 
 <br /><br />
