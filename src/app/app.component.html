@@ -93,7 +93,7 @@
     </div>
   </li>
 
-  <li *ngIf="!loadingRepositories && repositories.length == 0"> <a class="right-align grey-text" (click)="loadRepositoriesByOrganization()">ver todos</a> </li>
+  <li *ngIf="!loadingRepositories && repositories.length == 0" class="pointer"> <a class="right-align grey-text" (click)="loadRepositoriesByOrganization()">ver todos</a> </li>
   <li *ngIf="!loadingRepositories && repositories.length != 0"> <a class="subheader">Repos ({{ repositories.length || 0 }})</a> </li>
 
   <li style="overflow: auto; height: 60%; padding: 0 15px;">
