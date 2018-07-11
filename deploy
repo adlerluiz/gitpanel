@@ -1,33 +1,33 @@
 #!/bin/bash
 
-echo "============= Deploy Iniciado ============="
+echo "================ Deploy Iniciado =================="
 echo
-echo "============= Git Pull ============="
+echo "===================== Git Pull ===================="
 git pull origin master
 
 echo
 echo "Feito"
 
-echo "============= Angular Build Prod ============="
+echo "================ Angular Build Prod ==============="
 ng build --prod --base-href ./
 
 echo
 echo "Feito"
 
-echo "============= Copiando .htaccess para /dist ============="
+echo "========== Copiando .htaccess para /dist =========="
 cp .htaccess dist/gitpanel/
 
 echo
 echo "Feito"
 
-echo "============= Copiando oauth para /dist ============="
+echo "============ Copiando oauth para /dist ============"
 cp oauth.php dist/gitpanel/
 
 
-echo "============= Copiando .env para /dist ============="
+echo "============= Copiando .env para /dist ============"
 cp .env dist/gitpanel/
 
 echo
 echo "Feito"
 
-echo "============= Deploy Finalizado ============="
+echo "================ Deploy Finalizado ================"
