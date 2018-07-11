@@ -154,6 +154,10 @@ export class BranchesComponent implements OnInit, OnChanges {
               } ) ;
 
               if ( index2 + 1 === this.branchesToCompareValidated.length ) {
+                this.githubv3Service.getHash( { owner: this.owner, repo: this.repository, sha: arrBranches[ index ]['commit']['sha'] } )
+                  .subscribe( ( result2 ) => {
+                    arrBranches[ index ][ 'commit' ] = result2;
+                  } );
                 this.branchesData.push( arrBranches[ index ] );
               }
 

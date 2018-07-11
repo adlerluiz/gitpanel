@@ -148,8 +148,9 @@
 <table class="highlight" *ngIf="branchesData.length && !showLoadingBranches">
   <thead>
     <tr>
-      <th width="10%" style="padding: 26px !important;"> Branch </th>
-      <th width="10%"> Commit </th>
+      <th width="5%" style="padding: 26px !important;"> Branch </th>
+      <th width="1%"> Status </th>
+      <th width="15%"> Commit </th>
       <th width="2%" class="uppercase center" *ngFor="let branchToCompareData of branchesToCompareValidated">
         <span>{{ branchToCompareData }}</span>
       </th>
@@ -165,8 +166,14 @@
         <span style="padding-left: .5rem; border-left: 2px solid #EEE;">{{ branch.name }}</span>
       </td>
 
+      <td class="grey-text">
+        <i class="material-icons left tiny green-text">arrow_drop_up</i>{{ branch.commit.stats.additions }}
+        <br />
+        <i class="material-icons left tiny red-text">arrow_drop_down</i>{{ branch.commit.stats.deletions }}
+      </td>
+
       <td>
-        <span class="hide-on-med-and-down pointer" (click)="openBranchCommitUrl( branch )"> {{ branch.commit.sha }}</span>
+        <span class="hide-on-med-and-down pointer" (click)="openBranchCommitUrl( branch )"> {{ branch.commit.commit.message | gitmoji }} <br/> <span class="grey-text">{{ branch.commit.sha }}</span> </span>
         <span class="hide-on-large-only"> {{ branch.commit.sha | truncate:[ 7, '' ] }}</span>
       </td>
 

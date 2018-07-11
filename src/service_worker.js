@@ -1,4 +1,4 @@
-var CACHE_NAME = 'gitpanel-v1';
+var CACHE_NAME = 'gitpanel-v1.1';
 var urlsToCache = [
   '/'
 ];
