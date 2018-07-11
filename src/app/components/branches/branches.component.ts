@@ -6,7 +6,7 @@ declare let M: any;
 
 interface Branch {
   name: string;
-  commit: object;
+  commit: Commits;
   compare: object;
   isReload: boolean;
 }
@@ -29,6 +29,11 @@ interface CommitsBranch {
   merge_waiting?: boolean;
   merge_result_status?: string;
   merge_result_message?: string;
+}
+
+interface Commits {
+  commit: object;
+  stats: object;
 }
 
 @Component({
@@ -426,6 +431,10 @@ export class BranchesComponent implements OnInit, OnChanges {
 
   openScript( script ) {
     window.open( script );
+  }
+
+  openTree( branch ) {
+    window.open( 'https://github.com/' + this.owner + '/' + this.repository + '/tree/' + branch );
   }
 
   onDragStart( event ) {

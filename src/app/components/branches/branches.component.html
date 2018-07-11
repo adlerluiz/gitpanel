@@ -119,11 +119,11 @@
 
 </div>
 
-<div class="row">
+<!--div class="row">
 
   <div class="right">
 
-    <!--div class="switch">
+    <div class="switch">
       Multiplos merges
       <label>
 
@@ -131,7 +131,7 @@
         <span class="lever"></span>
 
       </label>
-    </div-->
+    </div>
 
     <div class="center bold" style="position: fixed; bottom: 30px; right: 30px;" *ngIf="showMergesCheckbox">
       <a id="tete" class="btn-floating btn-large waves-effect waves-light red" (click)="mergeSelectedBranches()">
@@ -143,13 +143,13 @@
 
   </div>
 
-</div>
+</div-->
 
 <table class="highlight" *ngIf="branchesData.length && !showLoadingBranches">
   <thead>
     <tr>
       <th width="5%" style="padding: 26px !important;"> Branch </th>
-      <th width="1%"> Status </th>
+      <th width="1%">  </th>
       <th width="15%"> Commit </th>
       <th width="2%" class="uppercase center" *ngFor="let branchToCompareData of branchesToCompareValidated">
         <span>{{ branchToCompareData }}</span>
@@ -162,8 +162,8 @@
     <!--tr *ngFor="let branch of branchesData | orderByImpure: 'name' | filterBy: ['name', 'commit.sha']: formSearch; let i = index"-->
     <tr *ngFor="let branch of branchesData; let i = index">
 
-      <td class="" style="padding-left: 26px !important;">
-        <span style="padding-left: .5rem; border-left: 2px solid #EEE;">{{ branch.name }}</span>
+      <td style="padding-left: 26px !important;">
+        <span class="pointer" style="font-weight: bold; padding-left: .5rem; /*border-left: 2px solid #2196F3;*/" (click)="openTree( branch.name )">{{ branch.name }}</span>
       </td>
 
       <td class="grey-text">

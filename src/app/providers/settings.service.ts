@@ -107,11 +107,13 @@ export class SettingsService {
     let result = false;
     const favorites = JSON.parse( localStorage.getItem( 'favorites_repositories' ) );
 
-    favorites[ owner ].forEach( ( data ) => {
-      if ( data === repository ) {
-        result = repository;
-      }
-    } );
+    if ( favorites ) {
+      favorites[ owner ].forEach( ( data ) => {
+        if ( data === repository ) {
+          result = repository;
+        }
+      } );
+    }
 
     return result;
   }

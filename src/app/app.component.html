@@ -65,21 +65,11 @@
 
   <li> <div class="divider"></div> </li>
 
-  <li style="padding: 0 15px;">
-    <div class="nav-wrapper">
-      <div class="input-field fix-search grey lighten-4">
-        <input id="search" type="search" class="transparent" [(ngModel)]="formSearchRepository">
-        <label class="label-icon" for="search" (click)="toggleSearchInput()"> <i class="material-icons">search</i> </label>
-        <i class="material-icons" (click)="formSearchRepository = ''">close</i>
-      </div>
-    </div>
-  </li>
-
-  <li style="min-height: 10%; padding: 0 15px;">
+  <li style="min-height: 10%; padding: 10px 15px;">
 
     <div *ngIf="!favoritesRepositoriesByOrganization.length" class="grey-text center" style="border: 1px solid #EEE;">
-      <div> <i class="material-icons">star</i> </div>
-      <div>Nenhum favorito adicionado</div>
+      <div style="margin-top: 10px;"> <i class="material-icons">star</i> </div>
+      <div style="margin-top: -20px;">Nenhum favorito adicionado</div>
     </div>
 
     <div *ngIf="favoritesRepositoriesByOrganization.length">
@@ -94,7 +84,16 @@
   </li>
 
   <li *ngIf="!loadingRepositories && repositories.length == 0" class="pointer"> <a class="right-align grey-text" (click)="loadRepositoriesByOrganization()">ver todos</a> </li>
-  <li *ngIf="!loadingRepositories && repositories.length != 0"> <a class="subheader">Repos ({{ repositories.length || 0 }})</a> </li>
+  <li *ngIf="!loadingRepositories && repositories.length != 0">
+    <div class="nav-wrapper">
+      <div class="input-field fix-search grey lighten-4">
+        <input id="search" type="search" class="transparent" [(ngModel)]="formSearchRepository">
+        <label class="label-icon" for="search" (click)="toggleSearchInput()"> <i class="material-icons">search</i> </label>
+        <i class="material-icons" (click)="formSearchRepository = ''">close</i>
+      </div>
+    </div>
+    <!--a class="subheader">Repos ({{ repositories.length || 0 }})</a-->
+  </li>
 
   <li style="overflow: auto; height: 60%; padding: 0 15px;">
     <div>
