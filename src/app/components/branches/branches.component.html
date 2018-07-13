@@ -57,7 +57,7 @@
       <div class="collection">
         <a class="collection-item pointer" *ngFor="let commit of formDataCommitsBranch.commits | orderByImpure: '-commit.author.date'" (click)="openCommitUrl( commit )">
           <span style="padding-right: 3%;" class="grey-text">{{ commit.commit.author.date | date:'dd/MM/yyyy HH:mm' }}</span>
-          <span>{{ commit.commit.message | gitmoji }}</span>
+          <span>{{ commit.commit.message | truncate:[ 250, '...' ] | gitmoji }}</span>
           <span class="badge hide-on-med-and-down"> {{ commit.sha }} <img src="{{ commit.author.avatar_url }}" width="16" /> </span>
         </a>
       </div>
@@ -173,7 +173,7 @@
       </td>
 
       <td>
-        <span class="hide-on-med-and-down pointer" (click)="openBranchCommitUrl( branch )"> {{ branch.commit.commit.message | gitmoji }} <br/> <span class="grey-text">{{ branch.commit.sha }}</span> </span>
+        <span class="hide-on-med-and-down pointer" (click)="openBranchCommitUrl( branch )"> {{ branch.commit.commit.message | truncate:[ 100, '...' ] | gitmoji }} <br/> <span class="grey-text">{{ branch.commit.sha }}</span> </span>
         <span class="hide-on-large-only"> {{ branch.commit.sha | truncate:[ 7, '' ] }}</span>
       </td>
 
