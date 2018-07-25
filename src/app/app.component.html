@@ -19,8 +19,8 @@
   <div class="nav-wrapper">
 
     <a class="brand-logo left">
-      <span data-target="slide-out" class="sidenav-trigger">
-        <i class="material-icons pointer" *ngIf="isLogged()" (click)="loadFavoritesRepositoriesByOrganization()">menu</i>
+      <span data-target="slide-out" class="sidenav-trigger" (click)="loadFavoritesRepositoriesByOrganization()">
+        <i class="material-icons pointer" *ngIf="isLogged()">menu</i>
         Git Panel
       </span>
     </a>
