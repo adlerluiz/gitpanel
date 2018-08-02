@@ -51,7 +51,7 @@ export class CheckTokenComponent implements OnInit {
   }
 
   setupDefaults() {
-    this.settingsService.setUserSettings( 'default_branches', [ 'qa', 'homolog', 'master' ] );
+    this.settingsService.setUserSettings( 'default_branches', [ 'master' ] );
 
     this.githubV3Service.getOrgs()
       .subscribe( ( data: any ) => {
