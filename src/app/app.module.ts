@@ -22,6 +22,8 @@ import { BranchesComponent } from './components/branches/branches.component';
 import { LoginComponent } from './components/login/login.component';
 import { ActivitiesComponent } from './components/activities/activities.component';
 import { CheckTokenComponent } from './components/check-token/check-token.component';
+import { Interceptor } from './guard/interceptor.module';
+import { AuthGuard } from './guard/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -41,9 +43,10 @@ import { CheckTokenComponent } from './components/check-token/check-token.compon
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    NgPipesModule
+    NgPipesModule,
+    Interceptor
   ],
-  providers: [ AuthService, GithubV3Service, SettingsService ],
+  providers: [ AuthService, GithubV3Service, SettingsService, AuthGuard ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

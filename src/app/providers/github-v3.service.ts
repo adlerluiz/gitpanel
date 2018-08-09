@@ -66,7 +66,8 @@ export class GithubV3Service {
     }
 
     if ( url.indexOf( ':token' ) !== -1 ) {
-      urlReturn = urlReturn.replace( ':token', '?access_token=' + this.authService.getToken() + '&per_page=100' + '&no_cache=' + Math.random() );
+      // urlReturn = urlReturn.replace( ':token', '?access_token=' + this.authService.getToken() + '&per_page=100' + '&no_cache=' + Math.random() );
+      urlReturn = urlReturn.replace( ':token', '?per_page=100' + '&no_cache=' + Math.random() );
     }
 
     if ( url.indexOf( ':repo' ) !== -1 ) {

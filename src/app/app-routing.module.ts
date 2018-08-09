@@ -7,12 +7,13 @@ import { CheckTokenComponent } from './components/check-token/check-token.compon
 import { SettingsComponent } from './components/settings/settings.component';
 import { RepositoryComponent } from './components/repository/repository.component';
 
-import { AuthService } from './providers/auth.service';
+import { AuthGuard } from './guard/auth-guard.service';
 
 const routes: Routes = [
     {
         path: '',
-        component: HomeComponent
+        component: HomeComponent,
+        canActivate: [ AuthGuard ]
     },
     {
         path: 'login',
@@ -20,19 +21,23 @@ const routes: Routes = [
     },
     {
         path: 'checkToken/:access_token',
-        component: CheckTokenComponent
+        component: CheckTokenComponent,
+        canActivate: [ AuthGuard ]
     },
     {
         path: 'settings',
-        component: SettingsComponent
+        component: SettingsComponent,
+        canActivate: [ AuthGuard ]
     },
     {
         path: 'r/:owner/:repository',
-        component: RepositoryComponent
+        component: RepositoryComponent,
+        canActivate: [ AuthGuard ]
     },
     {
         path: '**',
-        component: HomeComponent
+        component: HomeComponent,
+        canActivate: [ AuthGuard ]
     }
 ];
 
@@ -42,20 +47,6 @@ const routes: Routes = [
 })
 export class AppRoutingModule {
 
-  constructor(
-    public authService: AuthService,
-    public route: Router,
-  ) {
-    if ( !this.validateUrl() ) {
-      this.authService.handleLogin();
-    }
-  }
-
-  validateUrl() {
-    if ( location.hash.indexOf( 'login' ) !== -1 || location.hash.indexOf( 'checkToken' ) !== -1 ) {
-      return true;
-    }
-    return false;
-  }
+  constructor() { }
 
 }
