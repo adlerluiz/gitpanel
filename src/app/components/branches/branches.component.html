@@ -148,8 +148,8 @@
 <table class="highlight" *ngIf="branchesData.length && !showLoadingBranches">
   <thead>
     <tr>
+      <th width="2%">  </th>
       <th width="5%" style="padding: 26px !important;"> Branch </th>
-      <th width="1%">  </th>
       <th width="15%"> Commit </th>
       <th width="2%" class="uppercase center" *ngFor="let branchToCompareData of branchesToCompareValidated">
         <span>{{ branchToCompareData }}</span>
@@ -162,14 +162,12 @@
     <!--tr *ngFor="let branch of branchesData | orderByImpure: 'name' | filterBy: ['name', 'commit.sha']: formSearch; let i = index"-->
     <tr *ngFor="let branch of branchesData; let i = index">
 
-      <td style="padding-left: 26px !important;">
-        <span class="pointer" style="font-weight: bold; padding-left: .5rem; /*border-left: 2px solid #2196F3;*/" (click)="openTree( branch.name )">{{ branch.name }}</span>
+      <td class="grey-text">
+        {{ branch.commit.commit.committer.date | date:'dd/MM/yyyy HH:mm' }}
       </td>
 
-      <td class="grey-text">
-        <i class="material-icons left tiny green-text">add</i>{{ branch.commit.stats.additions }}
-        <br />
-        <i class="material-icons left tiny red-text">remove</i>{{ branch.commit.stats.deletions }}
+      <td style="padding-left: 26px !important;">
+        <span class="pointer" style="font-weight: bold; padding-left: .5rem; /*border-left: 2px solid #2196F3;*/" (click)="openTree( branch.name )">{{ branch.name }}</span>
       </td>
 
       <td>
