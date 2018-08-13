@@ -175,7 +175,7 @@ export class BranchesComponent implements OnInit, OnChanges {
       if ( data.length === index + 1 ) {
         setTimeout( () => {
           this.setShowLoadingBranches( false );
-        }, 1800 );
+        }, 2400 );
       }
     } );
   }
