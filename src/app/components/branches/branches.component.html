@@ -182,7 +182,10 @@
         </label>
 
         <button class="btn waves-light modal-trigger" [ngClass]="getClassesToButton( branch.compare[ branchToCompareData ] )" *ngIf="verifyIfHaveAheadCommits( branch.compare[ branchToCompareData ] )" (click)="bindBranchDataToModal( branch, branchToCompareData, i )" data-target="modalCommitsBranch">
-          {{ branch.compare[ branchToCompareData ].ahead_by }} commit<span *ngIf="verifyIfHaveAheadCommits( branch.compare[ branchToCompareData ] ) > 1">s</span>
+          <span [hidden]="branch.isReload">
+            {{ branch.compare[ branchToCompareData ].ahead_by }} commit<span *ngIf="verifyIfHaveAheadCommits( branch.compare[ branchToCompareData ] ) > 1">s</span>
+          </span>
+          <i [hidden]="!branch.isReload" class="material-icons text-blue">hourglass_empty</i>
         </button>
 
         <button class="btn waves-light" [ngClass]="getClassesToButton( branch.compare[ branchToCompareData ] )" *ngIf="!verifyIfHaveAheadCommits( branch.compare[ branchToCompareData ] )">
