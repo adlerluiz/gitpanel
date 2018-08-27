@@ -21,8 +21,7 @@ const routes: Routes = [
     },
     {
         path: 'checkToken/:access_token',
-        component: CheckTokenComponent,
-        canActivate: [ AuthGuard ]
+        component: CheckTokenComponent
     },
     {
         path: 'settings',
