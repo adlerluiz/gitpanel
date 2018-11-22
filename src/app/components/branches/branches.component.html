@@ -163,7 +163,7 @@
     <tr *ngFor="let branch of branchesData; let i = index">
 
       <td class="grey-text">
-        {{ branch.commit.commit.committer.date | date:'dd/MM/yyyy HH:mm' }}
+        {{ branch.commit.commit.committer.date ? (branch.commit.commit.committer.date | date:'dd/MM/yyyy HH:mm') : "Carregando..." }}
       </td>
 
       <td style="padding-left: 26px !important;">
@@ -171,7 +171,7 @@
       </td>
 
       <td>
-        <span class="hide-on-med-and-down pointer" (click)="openBranchCommitUrl( branch )"> {{ branch.commit.commit.message | truncate:[ 100, '...' ] | gitmoji }} <br/> <span class="grey-text">{{ branch.commit.sha }}</span> </span>
+        <span class="hide-on-med-and-down pointer" (click)="openBranchCommitUrl( branch )"> {{ branch.commit.commit.message ? ( branch.commit.commit.message | truncate:[ 100, '...' ] | gitmoji ) : "Carregando..." }} <br/> <span class="grey-text">{{ branch.commit.sha }}</span> </span>
         <span class="hide-on-large-only"> {{ branch.commit.sha | truncate:[ 7, '' ] }}</span>
       </td>
 

@@ -6,7 +6,7 @@ declare let M: any;
 
 interface Branch {
   name: string;
-  commit: Commits;
+  commit?: Commits;
   compare: object;
   isReload: boolean;
 }
@@ -32,8 +32,13 @@ interface CommitsBranch {
 }
 
 interface Commits {
-  commit: object;
-  stats: object;
+  commit?: CommitCommits;
+  stats?: object;
+}
+
+interface CommitCommits {
+  committer?: string;
+  message?: string;
 }
 
 @Component({
@@ -143,8 +148,18 @@ export class BranchesComponent implements OnInit, OnChanges {
         arrBranches[ index ] = value;
         arrBranches[ index ][ 'isReload' ] = false;
         arrBranches[ index ][ 'compare' ] = {};
+        arrBranches[ index ][ 'commit' ][ 'commit' ] = {};
+        arrBranches[ index ][ 'commit' ][ 'commit' ][ 'committer' ] = {};
 
         this.branchesToCompareValidated.forEach( ( branchToCompare: any, index2 ) => {
+
+          if ( index2 + 1 === this.branchesToCompareValidated.length ) {
+            this.githubv3Service.getHash( { owner: this.owner, repo: this.repository, sha: arrBranches[ index ]['commit']['sha'] } )
+              .subscribe( ( result2 ) => {
+                arrBranches[ index ][ 'commit' ] = result2;
+              } );
+            this.branchesData.push( arrBranches[ index ] );
+          }
 
           this.githubv3Service.getCompare( { owner: this.owner, repo: this.repository, base: branchToCompare, head: value.name } )
             .subscribe( ( result ) => {
@@ -157,15 +172,7 @@ export class BranchesComponent implements OnInit, OnChanges {
                   arrBranches[ index ][ 'compare' ][ branchToCompare ][ 'have_script' ] = true;
                 }
               } ) ;
-
-              if ( index2 + 1 === this.branchesToCompareValidated.length ) {
-                this.githubv3Service.getHash( { owner: this.owner, repo: this.repository, sha: arrBranches[ index ]['commit']['sha'] } )
-                  .subscribe( ( result2 ) => {
-                    arrBranches[ index ][ 'commit' ] = result2;
-                  } );
-                this.branchesData.push( arrBranches[ index ] );
-              }
-
+              
             }, error => {} );
 
         } );
