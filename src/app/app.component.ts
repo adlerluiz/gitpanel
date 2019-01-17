@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
 
 import { AuthService } from './providers/auth.service';
 import { GithubV3Service } from './providers/github-v3.service';
@@ -15,7 +15,7 @@ interface User {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   @ViewChild('sideNav') sideNav: ElementRef;
 
   user: User;
@@ -41,6 +41,11 @@ export class AppComponent {
       // this.loadRepositoriesByOrganization();
     }
     this.currentRepositoryName = this.settingsService.getLastRepository();
+  }
+
+  ngAfterViewInit() {
+    var tooltipElems = document.querySelectorAll('.tooltipped');
+    M.Tooltip.init( tooltipElems, {} );
   }
 
   isLogged() {

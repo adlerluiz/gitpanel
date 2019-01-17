@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { GithubV3Service } from '../../providers/github-v3.service';
 import { ActivatedRoute } from '@angular/router';
 import { SettingsService } from '../../providers/settings.service';
@@ -20,7 +20,7 @@ interface CompareData {
   templateUrl: './repository.component.html',
   styleUrls: ['./repository.component.scss']
 })
-export class RepositoryComponent implements OnInit {
+export class RepositoryComponent implements OnInit, AfterViewInit {
   @ViewChild('repositoryTabs') repositoryTabs: ElementRef;
 
   // commits: any;
@@ -67,6 +67,11 @@ export class RepositoryComponent implements OnInit {
       instanceRepositoryTabs.select( this.defaultTab );
     } );
 
+  }
+
+  ngAfterViewInit() {
+    var tooltipElems = document.querySelectorAll( '.tooltipped' );
+    M.Tooltip.init( tooltipElems, {} );
   }
 
   loadRepositoryData() {

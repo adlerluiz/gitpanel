@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild, AfterViewInit } from '@angular/core';
 import { GithubV3Service } from '../../providers/github-v3.service';
 import { ActivatedRoute } from '@angular/router';
 import { SettingsService } from '../../providers/settings.service';
@@ -46,7 +46,7 @@ interface CommitCommits {
   templateUrl: './branches.component.html',
   styleUrls: ['./branches.component.scss']
 })
-export class BranchesComponent implements OnInit, OnChanges {
+export class BranchesComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() owner: any;
   @Input() repository: string;
   @Input() search: string;
@@ -91,6 +91,10 @@ export class BranchesComponent implements OnInit, OnChanges {
     M.Modal.init( elems );
     M.Tooltip.init( elemsTooltip );
     // M.TapTarget.init( this.tapTarget.nativeElement );
+  }
+
+  ngAfterViewInit() {
+    
   }
 
   ngOnChanges( changes: SimpleChanges ) {
@@ -173,17 +177,23 @@ export class BranchesComponent implements OnInit, OnChanges {
                 }
               } ) ;
               
-            }, error => {} );
+            }, 
+            error => {
+              M.toast( { html: "Erro ao listar branches" } )
+            },
+            () => {
+              setTimeout( () => {
+                this.setShowLoadingBranches( false );
+                
+                var tooltipElems = document.querySelectorAll( '.tooltipped' );
+                M.Tooltip.init( tooltipElems, {} );
+              }, 1000 );
+            } );
 
         } );
 
       }
 
-      if ( data.length === index + 1 ) {
-        setTimeout( () => {
-          this.setShowLoadingBranches( false );
-        }, 2400 );
-      }
     } );
   }
 
@@ -444,25 +454,46 @@ export class BranchesComponent implements OnInit, OnChanges {
     window.open( 'https://github.com/' + this.owner + '/' + this.repository + '/tree/' + branch );
   }
 
-  onDragStart( event ) {
+  dragstart_handler( ev ) {
+    ev.dataTransfer.setData( 'text/plain', 'merge' );
+    document.getElementById( 'labelDragToHere' ).innerText = "Solte aqui";
+  }
+   
+  dragover_handler( ev ) {
+    ev.preventDefault();
+  }
+   
+  drop_handler( ev ) {
+    ev.preventDefault();
+    // Get the data, which is the id of the drop target
+    var data = ev.dataTransfer.getData( 'text' );
+    if ( data == 'merge' ) {
+      //this.openModalConfirmMerge();
+      this.mergeBranchesCompare( this.formDataCommitsBranch );
+    }
+    // Clear the drag data cache (for all formats/types)
+    ev.dataTransfer.clearData();
+
     const drag = this.dragDivMerge.nativeElement;
     const drop = this.dropDivMerge.nativeElement;
-
-    drop.style.border = '2px dashed white';
-
-    event.dataTransfer.setData('data', 'merge');
+    //drop.style.border = 'none';
+    //drag.style.border = 'none';
   }
 
-  onDrop( event ) {
-    const dataTransfer = event.dataTransfer.getData('data');
-    if ( dataTransfer === 'merge' ) {
-
-    }
-    event.preventDefault();
+  mouseOver( ev ) {
+    ev.currentTarget.classList.remove( 'blink' );
+    this.dropDivMerge.nativeElement.classList.add( 'blink' );
+    document.getElementById( 'labelDragToHere' ).innerText = "Arraste para cá";
+    document.getElementById( 'labelDragToMerge' ).innerText = "";
   }
 
-  allowDrop( event ) {
-    event.preventDefault();
+  mouseOut( ev ) {
+    ev.currentTarget.classList.add( 'blink' );
+    ev.currentTarget.style.border = "none";
+
+    this.dropDivMerge.nativeElement.classList.remove( 'blink' );
+    document.getElementById( 'labelDragToHere' ).innerText = "";
+    document.getElementById( 'labelDragToMerge' ).innerText = "Arraste para mergear";
   }
 
 }

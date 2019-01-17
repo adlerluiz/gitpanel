@@ -8,9 +8,9 @@
           <nav class="transparent z-depth-0">
             <div class="nav-wrapper">
               <div class="col s12">
-                <a class="breadcrumb" (click)="toggleFavorite()">
+                <a class="breadcrumb tooltipped" (click)="toggleFavorite()" data-position="bottom" data-tooltip="Usuário/Organização">
                   <i style="font-size: 19px;" class="material-icons yellow-text pointer">{{ isFavoriteRepository && 'star' || 'star_border' }}</i>   {{ owner }} </a>
-                <a class="breadcrumb">{{ repository }}</a>
+                <a class="breadcrumb tooltipped" data-position="bottom" data-tooltip="Repositório">{{ repository }}</a>
               </div>
             </div>
           </nav>

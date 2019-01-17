@@ -23,6 +23,10 @@ html, body {
   cursor: pointer;
 }
 
+.move {
+  cursor: move;
+}
+
 .bottom-sheet {
   max-height: 60% !important;
 }
@@ -45,4 +49,14 @@ html, body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.blink {
+  animation: blinker 1.5s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0.5;
+  }
 }

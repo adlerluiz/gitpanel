@@ -28,19 +28,19 @@
     <ul class="right" *ngIf="isLogged()">
 
       <li>
-        <a (click)="refresh()">
+        <a (click)="refresh()" class="tooltipped" data-position="bottom" data-tooltip="Atualizar Página">
           <i class="material-icons">refresh</i>
         </a>
       </li>
 
       <li>
-        <a [routerLink]="['/settings']">
+        <a [routerLink]="['/settings']" class="tooltipped" data-position="bottom" data-tooltip="Configurações">
           <i class="material-icons">settings</i>
         </a>
       </li>
 
       <li *ngIf="isLogged()">
-        <a class="dropdown-trigger" data-target="dropdown_info">
+        <a class="dropdown-trigger" data-target="dropdown_info" class="tooltipped" data-position="bottom" data-tooltip="Perfil">
           <span class="hide-on-small-only">{{ user.name }}</span>
           <i class="material-icons right">
             <img style="margin-top: 19px;" class="circle" src="{{ user.avatar_url }}" width="25" />
