@@ -484,7 +484,7 @@ export class BranchesComponent implements OnInit, AfterViewInit, OnChanges {
     ev.currentTarget.classList.remove( 'blink' );
     this.dropDivMerge.nativeElement.classList.add( 'blink' );
     document.getElementById( 'labelDragToHere' ).innerText = "Arraste para cá";
-    document.getElementById( 'labelDragToMerge' ).innerText = "";
+    document.getElementById( 'labelDragToMerge' ).innerText = " ";
   }
 
   mouseOut( ev ) {
@@ -492,7 +492,7 @@ export class BranchesComponent implements OnInit, AfterViewInit, OnChanges {
     ev.currentTarget.style.border = "none";
 
     this.dropDivMerge.nativeElement.classList.remove( 'blink' );
-    document.getElementById( 'labelDragToHere' ).innerText = "";
+    document.getElementById( 'labelDragToHere' ).innerText = " ";
     document.getElementById( 'labelDragToMerge' ).innerText = "Arraste para mergear";
   }
 
