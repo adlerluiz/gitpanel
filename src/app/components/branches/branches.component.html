@@ -21,38 +21,17 @@
     <div class="row">
 
       <div class="left">
-        <!--h3> {{ formDataCommitsBranch.name }} <i class="material-icons orange-text">trending_flat</i>
-          <span class="uppercase"> {{ formDataCommitsBranch.compare_with }} </span>
-        </h3-->
         <h3>Confirmar Merge</h3>
       </div>
       
 
       <div class="right">
-          <!--a class="waves-effect waves-light btn modal-trigger" style="width: 130px !important;"
-             data-target="modalArquivoMd" ng-class="{ disabled: !currentBranch['compare_'+currentBranch['type']].md }"><i class="material-icons left">info</i> .md</a-->
-
           <button class="waves-effect waves-light orange btn" (click)="openModalConfirmMerge()">
             <i class="material-icons left">call_merge</i> Merge
           </button>
       </div>
 
     </div>
-
-    <!--div class="row" [hidden]="formDataCommitsBranch.merge_result_status === 'ok'">
-      <div class="card-panel col s4 blue center white-text move blink" #dragDivMerge style="padding: 20px;" (mouseover)="mouseOver( $event )" (mouseout)="mouseOut( $event )" (dragstart)="dragstart_handler( $event )" draggable="true">{{ formDataCommitsBranch.name }} (Arraste para mergear)</div>
-
-      <div class="col s4 center" style="padding: 10px;">
-        <i class="material-icons">trending_flat</i>
-        <br/>
-        <b>{{ formDataCommitsBranch.ahead_by }}</b> commit<span *ngIf="formDataCommitsBranch.ahead_by > 1">s</span>
-
-        <span *ngIf="formDataCommitsBranch.ahead_by > 1"> serão mergeados</span>
-        <span *ngIf="formDataCommitsBranch.ahead_by == 1"> será mergeado</span>
-      </div>
-
-      <div class="card-panel col s4 green center white-text uppercase blink" #dropDivMerge style="padding: 20px; border: 3px dashed #FFF;" (drop)="drop_handler( $event )" (dragover)="dragover_handler( $event )">{{ formDataCommitsBranch.compare_with }}</div>
-    </div-->
 
     <div class="row" *ngIf="formDataCommitsBranch.total_scripts">
       <p class="subheader">
@@ -160,39 +139,9 @@
 
   <div class="modal-footer">
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Fechar</button>
-
-    <!--button class="waves-effect waves-green btn-flat white-text green" (click)="mergeBranchesCompare( formDataCommitsBranch )"
-            [disabled]="formDataCommitsBranch.merge_waiting || formDataCommitsBranch.merge_result_status === 'ok'">Merge
-    </button-->
   </div>
 
 </div>
-
-<!--div class="row">
-
-  <div class="right">
-
-    <div class="switch">
-      Multiplos merges
-      <label>
-
-        <input type="checkbox" [(ngModel)]="showMergesCheckbox" (change)="toggleMultMerges( showMergesCheckbox )">
-        <span class="lever"></span>
-
-      </label>
-    </div>
-
-    <div class="center bold" style="position: fixed; bottom: 30px; right: 30px;" *ngIf="showMergesCheckbox">
-      <a id="tete" class="btn-floating btn-large waves-effect waves-light red" (click)="mergeSelectedBranches()">
-        {{ branchesToMerge.length }}
-      </a>
-      <br />
-      Branch<span *ngIf="branchesToMerge.length === 0 || branchesToMerge.length > 1">es</span> selecionada<span *ngIf="branchesToMerge.length === 0 || branchesToMerge.length > 1">s</span>
-    </div>
-
-  </div>
-
-</div-->
 
 <table class="highlight" *ngIf="branchesData.length && !showLoadingBranches">
   <thead>
@@ -208,7 +157,6 @@
   </thead>
 
   <tbody style="padding-top: 20px !important;">
-    <!--tr *ngFor="let branch of branchesData | orderByImpure: 'name' | filterBy: ['name', 'commit.sha']: formSearch; let i = index"-->
     <tr *ngFor="let branch of branchesData; let i = index">
 
       <td class="grey-text">

@@ -63,7 +63,16 @@ export class GitmojiPipe implements PipeTransform {
     clown_face: '🤡',
     egg: '🥚',
     see_no_evil: '🙈',
-    camera_flash: '📸'
+    camera_flash: '📸',
+    alembic: '⚗',
+    mag: '🔍',
+    wheel_of_dharma: '☸️',
+    label: '🏷️',
+    seedling: '🌱',
+    triangular_flag_on_post: '🚩',
+    goal_net: '🥅',
+    dizzy: '💫',
+    wastebasket: '🗑'
   };
 
   pattSearch: any = /\:(\w+)\:/gmi;
@@ -74,16 +83,15 @@ export class GitmojiPipe implements PipeTransform {
       this.pattSearch.exec( value );
 
       const matched = this.pattSearch.exec( value );
-      value = value.replace( matched[0] , this.gitmojis[ matched[1] ] );
-    }
 
+      if (matched) {
+        value = value.replace( matched[0], (this.gitmojis[ matched[1] ]) ? this.gitmojis[ matched[1] ] : `:${matched[1]}:` );
+      } else {
+        value = '';
+      }
+    }
+    
     return value;
-
-    /*for ( const gitmoji in this.gitmojis ) {
-      value = value.replace( ':' + gitmoji + ':' , this.gitmojis[ gitmoji ] );
-    }
-
-    return value;*/
   }
 
 }
