@@ -366,7 +366,7 @@ export class BranchesComponent implements OnInit, AfterViewInit, OnChanges {
       base: branch.compare_with,
       head: branch.name,
       repo: this.repository,
-      commit_message: ':twisted_rightwards_arrows: Merge ' + branch.name + ' into ' + branch.compare_with + ' (gitpanel)'
+      commit_message: '🔀 Merge ' + branch.name + ' into ' + branch.compare_with + ' (gitpanel)'
     };
 
     this.githubv3Service.postMerge( obj )
