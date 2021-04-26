@@ -54,7 +54,7 @@
         <a class="collection-item pointer" *ngFor="let commit of formDataCommitsBranch.commits | orderByImpure: '-commit.author.date'" (click)="openCommitUrl( commit )">
           <span style="padding-right: 3%;" class="grey-text">{{ commit.commit.author.date | date:'dd/MM/yyyy HH:mm' }}</span>
           <span>{{ commit.commit.message | truncate:[ 250, '...' ] | gitmoji }}</span>
-          <span class="badge hide-on-med-and-down"> {{ commit.sha }} <img src="{{ commit.author.avatar_url }}" width="16" /> </span>
+          <span class="badge hide-on-med-and-down"> {{ commit.sha }} <img src="{{ commit?.author?.avatar_url }}" width="16" /> </span>
         </a>
       </div>
     </div>
@@ -130,7 +130,7 @@
         <a class="collection-item pointer" *ngFor="let commit of formDataCommitsBranch.commits | orderByImpure: '-commit.author.date'" (click)="openCommitUrl( commit )">
           <span style="padding-right: 3%;" class="grey-text">{{ commit.commit.author.date | date:'dd/MM/yyyy HH:mm' }}</span>
           <span>{{ commit.commit.message | truncate:[ 250, '...' ] | gitmoji }}</span>
-          <span class="badge hide-on-med-and-down"> {{ commit.sha }} <img src="{{ commit.author.avatar_url }}" width="16" /> </span>
+          <span class="badge hide-on-med-and-down"> {{ commit.sha }} <img src="{{ commit?.author?.avatar_url }}" width="16" /> </span>
         </a>
       </div>
     </div>

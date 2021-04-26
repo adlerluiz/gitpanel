@@ -1,6 +1,6 @@
 <!--canvas id="gitGraph"></canvas-->
 
-<h5 *ngIf="commits.length">Últimos {{ commits.length }} commits</h5>
+<h5 *ngIf="commits?.length">Últimos {{ commits?.length }} commits</h5>
 <div class="collection" *ngIf="!showLoadingActivities">
   <a class="collection-item pointer" *ngFor="let commit of commits">
     <!--label>
